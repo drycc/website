@@ -1,0 +1,20 @@
+<% if (is_home()) { %>
+	<header id="header" class="header header-absolute">
+<% } else {%>
+	<header class="header">
+<% } %>
+	<div class="container">
+		<nav class="navbar d-flex align-items-center">
+			<a class="brand" href="<%- url_for() %>">
+				<img class="logo" src="<%- url_for(theme.brand) %>" alt="<%= config.title %>" role="img">
+			</a>
+			<%- partial('_partial/menu-primary', {class_name: 'main-nav'}) %>
+			<%- partial('_partial/menu-secondary', {class_name: 'main-nav'}) %>
+		</nav>
+		<a id="mobile-nav-toggle">
+			<span class="mobile-nav-toggle-bar"></span>
+			<span class="mobile-nav-toggle-bar"></span>
+			<span class="mobile-nav-toggle-bar"></span>
+		</a>
+	</div>
+</header>

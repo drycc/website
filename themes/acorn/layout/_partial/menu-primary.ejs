@@ -1,0 +1,21 @@
+<ul class="<%= class_name %>">
+  <% for (var i in theme.menu_primary){ %>
+    <% 
+      var clsName = "";
+      if (is_post() && i == "Archive") {
+        clsName = "active dotted";
+      } else if (is_home() && i == "Home") {
+        clsName = "active";
+      } else if (is_archive() && i == "Archive") {
+        clsName = "active";
+      } else {
+          if (theme.menu_primary[i].substring(1)+"/index.html" == path) {
+            clsName = "active";
+          }
+      }
+    %>
+  <li class="nav-item <%= clsName %>">
+    <a class="nav-item-link" href="<%- url_for(theme.menu_primary[i]) %>"><%= i %></a>
+  </li>
+  <% } %>
+</ul>

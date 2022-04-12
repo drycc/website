@@ -1,0 +1,49 @@
+## 专辑
+# name:         标题
+# en_name:      英文标题
+# description:  描述内容
+# cover:        封面图片路径
+# link:         链接路径，无链接为空即可
+# preview:      预览路径，无则可以为空
+#
+- name:
+  en_name: EASY TO INSTALL
+  description: If you have a pure host, it can be a cloud server, bare metal server, virtual machine, or even your laptop. Install with just one command.
+  cover: /images/album/install.jpg
+  link: https://drycc.cc/quickstart/
+  preview: 
+
+- name:
+  en_name: MEET TWELVE-FACTOR
+  description: Drycc Workflow is a lightweight Container as a Service (CaaS) platform that deploys and scales Twelve-Factor apps as containers across a K8s cluster.
+  cover: /images/album/12-factor.jpg
+  link: https://drycc.cc/understanding-workflow/concepts/
+  preview: 
+
+- name:
+  en_name: EASY TO USE
+  description: Drycc Workflow can deploy any application or service that can run inside a container. In order to be scaled horizontally.
+  cover: /images/album/app.png
+  link: https://drycc.cc/applications/deploying-apps/
+  preview: 
+
+- name:
+  en_name: DEVOPS FRIENDLY
+  description: Scale horizontally or vertically to handle planned or unplanned traffic spikes. Maximize availability with zero downtime deployments.
+  cover: /images/album/devops.jpg
+  link: https://drycc.cc/managing-workflow/tuning-component-settings/
+  preview: 
+
+- name:
+  en_name: MORE ADDONS
+  description: Mulit tools and services for developing, extending, and operating your app.
+  cover: /images/album/addons.jpg
+  link: https://drycc.cc/applications/managing-app-resources/
+  preview: 
+
+- name:
+  en_name: SHARED VOLUME
+  description: The volume can be mounted as read-write by many container. 
+  cover: /images/album/storage.png
+  link: https://drycc.cc/applications/managing-app-volumes/
+  preview: 

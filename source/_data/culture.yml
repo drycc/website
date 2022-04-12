@@ -1,0 +1,28 @@
+## 企业文化
+# name:         标题
+# en_name:      英文标题
+# description:  描述内容
+# cover:        封面图片路径
+# cover_size:   封面图片大小
+# link:         链接路径，无链接为空即可
+#
+- name: Cloud Native
+  en_name: 
+  description: Native to Kubernetes, Drycc is the Container as a Service suite available on every public cloud, every Kubernetes distribution, the private cloud and the edge.
+  cover: /images/culture/icon_1.svg
+  cover_size: 64
+  link:
+
+- name: Open Source
+  en_name: 
+  description: Open Source from Day One. Leverage the power of global innovation with the leading database open source community.
+  cover: /images/culture/icon_2.svg
+  cover_size: 64
+  link:
+
+- name: Multi Platform
+  en_name: 
+  description: Both X86 and ARM64 are supported with binaries and multiarch images available for both. Drycc works great from something as small as a AWS a1.4xlarge 32GiB server.
+  cover: /images/culture/icon_3.svg
+  cover_size: 64
+  link:

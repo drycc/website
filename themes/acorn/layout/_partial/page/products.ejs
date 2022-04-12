@@ -1,0 +1,21 @@
+<div class="row justify-content-center">
+  <% for (var item in site.data.products){%>
+    <div class="col-4">
+        <div class="card rounded bg-white">
+        <a href="<%=url_for(site.data.products[item]['link']) %>">
+            <img class="card-img" src="<%=url_for(site.data.products[item]['cover']) %>" alt="<%=site.data.products[item]['name'] %>">
+        </a>
+        <div class="card-body bg-light">
+            <h5 class="card-title line-clamp line-clamp-1">
+                <a href="<%=url_for(site.data.products[item]['link']) %>">
+                    <%=site.data.products[item]['name'] %>
+                </a>
+            </h5>
+            <small class="text-warning d-block mb-3"><%=site.data.products[item]['en_name'] %></small>
+            <div class="card-text text-gray line-clamp line-clamp-2"><%=site.data.products[item]['description'] %></div>
+        </div>
+        </div>
+    </div>
+  <%} %>
+</div>
+  

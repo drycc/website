@@ -1,0 +1,30 @@
+## 客户 LOGO 墙
+# name:         客户名称
+# cover:        客户 LOGO 路径
+#
+- name: LOGO
+  cover: /images/logo/vultr.svg
+
+- name: LOGO
+  cover: /images/logo/aliyun.svg
+
+- name: LOGO
+  cover: /images/logo/aws.svg
+
+- name: LOGO
+  cover: /images/logo/google-cloud.svg
+
+- name: LOGO
+  cover: /images/logo/microsoft-azure.svg
+
+- name: LOGO
+  cover: /images/logo/rackspace.svg
+
+- name: LOGO
+  cover: /images/logo/digitalocean.svg
+
+- name: LOGO
+  cover: /images/logo/oracle.svg
+
+- name: LOGO
+  cover: /images/logo/openstack-icon.svg

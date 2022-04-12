@@ -1,0 +1,13 @@
+## 友情链接
+# name:         文字/标题
+# link:         链接路径，无链接为空即可
+#
+- name: Terms of Service
+  link: https://legal.doopai.com/#/cloud-services-terms
+
+- name: Privacy
+  link: https://legal.doopai.com/#/doopai-privacy-policy
+
+- name: Cookies
+  link: https://legal.doopai.com/#/doopai-cookie-policy
+

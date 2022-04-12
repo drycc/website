@@ -1,0 +1,28 @@
+## 专辑
+# name:         标题
+# en_name:      英文标题
+# description:  描述内容
+# cover:        封面图片路径
+# link:         链接路径，无链接为空即可
+# preview:      预览路径，无则可以为空
+#
+- name: Drycc Cloud
+  en_name: Running in the cloud
+  description: Fully managed by Drycc Team that allows you to focus on building applications.
+  cover: /images/products/cloud.jpg
+  link: /products/cloud.html
+  preview: 
+
+- name: Community
+  en_name: Running on my laptop
+  description: Drycc is the open source container as a service that is community supported. 
+  cover: /images/products/community.jpg
+  link: /products/community.html
+  preview: 
+
+- name: Drycc Enterprise
+  en_name: Running in my environment
+  description: Drycc Enterprise is the solution for running the drycc on your own infrastructure.
+  cover: /images/products/enterprise.jpg
+  link: /products/enterprise.html
+  preview: 

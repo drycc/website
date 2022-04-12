@@ -1,0 +1,35 @@
+- name: Drycc Cloud
+  pricing: 0
+  deadline: Free Plan
+  description: Rate-limited plan for quickly and easily learning Drycc and standing up a prototype app.
+  cover: /images/pricing/cloud.png
+  link: 
+    url: /pricing/drycc-cloud-pricing.html
+    text: Try for Free
+
+- name: Drycc Cloud
+  pricing: 3+
+  deadline: Usage-Based Monthly Plan
+  description: Removes the Free Plan rate limits. Usage-based pricing — pay for what you use.
+  cover: /images/pricing/cloud.png
+  link: 
+    url: /pricing/drycc-cloud-pricing.html
+    text: Get Started
+
+- name: Drycc Cloud
+  pricing: 30+
+  deadline: 83% Discounted Annual Plan
+  description: If you lock plans for one year in advance, you can enjoy more discounts.
+  cover: /images/pricing/cloud.png
+  link: 
+    url: /pricing/drycc-cloud-pricing.html
+    text: Contact Us
+
+- name: Drycc Enterprise
+  pricing: 9,500+
+  deadline: Customer self-managed
+  description: Self-manage Drycc clusters on-premises or in your private cloud.
+  cover: /images/pricing/enterprise.png
+  link: 
+    url: /pricing/drycc-enterprise-pricing.html
+    text: Contact Us

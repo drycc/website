@@ -1,0 +1,45 @@
+## Index Section
+# name:         客户名称
+# title:        大标题
+# subtitle:     小标题，描述性
+#
+- name: album
+  id: 
+  title: Features
+  subtitle: Simpler cloud. Happier devs. Better results.
+  partial: album
+  bg_color: 
+  fluid: 
+  more: 
+
+- name: deployment
+  id: 
+  title: Running in the anywhere
+  subtitle: An easy-to-use, scalable Container as a Service (CaaS) platform available on Metal, AWS, Azure, and Google Cloud, and more.
+  partials: [instapic, quotation]
+  bg_color: 
+  fluid: 
+  more: 
+
+- name: products
+  id: 
+  title: Products
+  subtitle: One Platform, One API. Choose the architecture that’s right for you.
+  partial: page/products
+  bg_color: 
+
+- name: pricing
+  id: 
+  title: Plans designed for every team
+  subtitle: It’s easy to deploy, operate and scale Drycc — anywhere.
+  partial: page/pricing
+  bg_color: 
+
+- name: archive
+  id: 
+  title: News
+  subtitle: What's news about drycc.
+  partial: archive
+  bg_color: 
+  fluid: 
+  more: /archives/

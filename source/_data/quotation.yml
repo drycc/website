@@ -1,0 +1,16 @@
+## 客户称赞
+# number:   ID 不可为空，从 0 开始
+# name:     客户名称
+# words:    客户的称赞内容
+#
+- number: 0
+  name: Jonathan
+  words: Drycc can be deployed on existing kubernetes clusters or Linux machines, which is exactly what we need. It's really great.
+
+- number: 1
+  name: Lawrence
+  words: Drycc improves the resource utilization of our entire cluster and reduces the cost of internal infrastructure. Our team is completely in love with it.
+
+- number: 2
+  name: Douglas
+  words: If you are seeking an open source project that rivals a commercial product, automated installation, scaling, and upgrades from cloud to data center. Drycc is your choice.

@@ -1,0 +1,14 @@
+<div class="col-4">
+  <div class="card rounded bg-white">
+    <a href="<%=url_for(plugin.link) %>">
+      <img class="card-img" src="<%= plugin.cover %>" alt="<% plugin.name %>">
+    </a>
+    <div class="card-body bg-light">
+      <h5 class="card-title line-clamp line-clamp-1">
+        <a href="<%=url_for(plugin.link) %>"><%= plugin.name %></a>
+      </h5>
+      <small class="text-warning d-block mb-3"><%= plugin.en_name %></small>
+      <div class="card-text text-gray line-clamp line-clamp-2"><%= plugin.description %></div>
+    </div>
+  </div>
+</div>

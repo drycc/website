@@ -1,0 +1,49 @@
+# Header
+menu_primary:
+  Home: /
+  Products: /products/
+  Pricing: /pricing/
+  News: /archives/
+  About: /about/
+  
+
+menu_secondary:
+  Contact Us: https://tawk.to/chat/6234b5491ffac05b1d7f4669/1fueu8a9t
+  Try Drycc Cloud: https://manager.drycc.com
+
+# Content
+excerpt_link: Read More »
+
+# Toc
+toc: false
+
+# MIIT ICP/IP/DOMAIN
+beian: 
+  enable: false
+  number: 
+  url: https://beian.miit.gov.cn/
+
+# Miscellaneous
+favicon: /favicon.ico
+webclip: /images/webclip
+brand:   /images/brand.svg
+
+# Jumbotron video & Hero image
+## Jumbotron video
+video: 
+  overlay: true
+  path: /images/
+## Hero image
+hero: 
+  image: /images/banner.jpg
+## keen-slider
+keen_slider: 
+  enable: false
+
+# Slogan
+slogan: 
+  primary: Lightweight CaaS
+  secondary: A Open, Unified, Simpler Containers as a Service (CaaS).
+  archives: What's news about drycc.
+  pages: Drycc, the only Container as a Service (CaaS) you need.
+  posts: It’s easy to deploy, operate and scale Drycc — anywhere.

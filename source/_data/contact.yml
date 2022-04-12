@@ -1,0 +1,20 @@
+## 联系方式
+# name:         联系方式名称
+# en_name:      英文
+# icon:         图标路径，不使用图标为空即可
+# link:         链接路径，无链接为空即可
+#
+- name: 
+  en_name: github
+  icon: /images/icons/contact_github.svg
+  link: https://github.com/drycc
+
+- name:
+  en_name: slack
+  icon: /images/icons/contact_slack.svg
+  link: https://drycc.slack.com
+
+- name:
+  en_name: chat
+  icon: /images/icons/contact_chat.svg
+  link: https://tawk.to/chat/6234b5491ffac05b1d7f4669/1fueu8a9t
