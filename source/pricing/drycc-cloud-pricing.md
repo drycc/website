@@ -26,7 +26,7 @@ Our prices will vary slightly due to different regions. For details, you can log
 |Postgres  |Not available |$5+/Month (Master-Slave)        |Contact Sales |
 |Redis     |Not available |$2+/Month (Master-Slave)        |Contact Sales |
 
-### InfluxDB Cloud Support
+### Drycc Cloud Support
 
 |                                          |Free Plan      |Usage-Based Plan     |Annual Plans  |
 |------------------------------------------|---------------|---------------------|--------------|
