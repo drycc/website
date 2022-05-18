@@ -6,7 +6,7 @@ categories:
 keywords: drycc,deis
 description: Drycc is a community branch of the popular PaaS service Deis.
 photos: [
-  ["/images/sample/mydesk.png"]
+  ["/images/sample/release.jpg"]
 ] 
 ---
 

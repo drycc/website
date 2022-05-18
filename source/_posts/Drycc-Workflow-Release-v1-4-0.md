@@ -6,7 +6,7 @@ categories:
 keywords: release,v1.4.0
 description: Drycc Workflow v1.4.0
 photos: [
-  ["/images/sample/mydesk.png"]
+  ["/images/sample/release.jpg"]
 ] 
 ---
 

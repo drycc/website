@@ -6,7 +6,7 @@ categories:
 keywords: nfs,minio
 description: Install NFS and Minio on k8s
 photos: [
-  ["/images/sample/mydesk.png"]
+  ["/images/sample/release.jpg"]
 ] 
 ---
 

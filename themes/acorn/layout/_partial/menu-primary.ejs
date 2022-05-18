@@ -1,12 +1,14 @@
 <ul class="<%= class_name %>">
   <% for (var i in theme.menu_primary){ %>
-    <% 
+    <%
       var clsName = "";
-      if (is_post() && i == "Archive") {
+      if (is_post() && i == "News") {
         clsName = "active dotted";
       } else if (is_home() && i == "Home") {
         clsName = "active";
-      } else if (is_archive() && i == "Archive") {
+      } else if (is_archive() && i == "News") {
+        clsName = "active";
+      } else if (path.toLowerCase().indexOf(i.toLowerCase()) != -1){
         clsName = "active";
       } else {
           if (theme.menu_primary[i].substring(1)+"/index.html" == path) {

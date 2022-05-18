@@ -6,7 +6,7 @@ categories:
 keywords: drycc,aliyun,nodePort
 description: Install drycc by NodePort and aliyun oss
 photos: [
-  ["/images/sample/mydesk.png"]
+  ["/images/sample/release.jpg"]
 ] 
 ---
 
