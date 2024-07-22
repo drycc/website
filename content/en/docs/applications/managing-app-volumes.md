@@ -68,20 +68,23 @@ Before deleting volume, the volume has to be unmounted.
     $ drycc volumes:delete myvolumes
     Deleting myvolumes from scenic-icehouse... done
 
-## Use volume client
+## Use volume client to manage volume files.
+Assume the volume which is named myvolumes is created and mounted.
 
-The client used to manage volume files.
+Prepare a file named testfile.
 
-Usage: drycc volumes:client <cmd> <args>... [options]
+    $ echo "testtext" > testfile
 
-Arguments:
-  <cmd>
-    ls         list volume files
-    cp         copy volume files
-    rm         remove volume files
-  <args>
-    arguments for running commands
+Upload.
+    $ drycc volumes:client cp testfile vol://myvolume/
+    [↑] testfile                       100% [==================================================] (5/ 5 B, 355 B/s)
 
-Options:
-  -a --app=<app>
-    the uniquely identifiable name for the application.
+List files in myvolume.
+
+    $ /drycc-canary volumes:client ls vol://myvolume/
+    [2024-07-22T15:32:28+08:00]    5    testfile
+
+
+Delete testfle in myvolume.
+
+    $ /drycc-canary volumes:client rm vol://myvolume/testfile

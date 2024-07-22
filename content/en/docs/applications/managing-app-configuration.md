@@ -194,10 +194,10 @@ Workflow supports isolating applications onto a set of nodes using `drycc tags`.
     not, tag commands will fail. Learn more by reading ["Assigning Pods to Nodes"][pods-to-nodes].
 
 Once your nodes are configured with appropriate label selectors, use `drycc tags:set` to restrict
-the application to those nodes:
+the application ptype to those nodes:
 
 ```
-$ drycc tags:set environ=prod
+$ drycc tags:set web environ=prod
 Applying tags...  done, v4
 
 environ  prod

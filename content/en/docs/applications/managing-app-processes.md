@@ -210,7 +210,7 @@ Scale up can only happen if there was no rescaling within the last 3 minutes. Sc
 List the containers:
 
 ```
-# drycc ps
+$ drycc ps
 NAME                                                RELEASE    STATE    PTYPEE     READY    RESTARTS     STARTED
 python-getting-started-web-69b7d4bfdc-kl4xf         v2         up       web        1/1      0             2023-12-08T02:25:00UTC
 
@@ -221,7 +221,7 @@ python-getting-started-web-69b7d4bfdc-kl4xf up (v2)
 
 fetch the container logs:
 ```
-# drycc ps:logs -f python-getting-started-web-69b7d4bfdc-kl4xf
+$ drycc ps:logs -f python-getting-started-web-69b7d4bfdc-kl4xf
 [2024-05-24 07:14:39 +0000] [1] [INFO] Starting gunicorn 20.1.0
 [2024-05-24 07:14:39 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
 [2024-05-24 07:14:39 +0000] [1] [INFO] Using worker: gevent
@@ -236,7 +236,7 @@ fetch the container logs:
 List the containers:
 
 ```
-# drycc ps:describe python-getting-started-web-69b7d4bfdc-kl4xf
+$ drycc ps:describe python-getting-started-web-69b7d4bfdc-kl4xf
 Container:        python-getting-started-web                   
 Image:            drycc/python-getting-started:latest          
 Command:          
@@ -252,12 +252,21 @@ Restart Count:    0
 
 ```
 
+## delete a container of the application
+Delete the containers.
+Due to the set number of replicas, a new container will be launched to meet the quantity requirement.
+
+```
+$ drycc ps:delete python-getting-started-web-69b7d4bfdc-kl4xf
+Deleting python-getting-started-web-69b7d4bfdc-kl4xf from python-getting-started... done
+```
+
 ## Get a Shell to a Running Container
 
 Verify that the container is running:
 
 ```
-# drycc ps
+$ drycc ps
 NAME                                                RELEASE    STATE    PTYPEE     READY    RESTARTS     STARTED
 python-getting-started-web-69b7d4bfdc-kl4xf         v2         up       web        1/1      0             2023-12-08T02:25:00UTC
 
@@ -269,7 +278,7 @@ python-getting-started-web-69b7d4bfdc-kl4xf up (v2)
 Get a shell to the running container:
 
 ```
-# drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -it -- bash
+$ drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -it -- bash
 ```
 
 In your shell, list the root directory:
@@ -282,14 +291,14 @@ ls /
 Running individual commands in a container
 
 ```
-# drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -- date
+$ drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -- date
 ```
 
 Use "drycc ps --help" for a list of global command-line (applies to all commands).
 
 ## Restarting an Application Processes
 
-If you need to restart an application process, you may use `drycc ps:restart`. Behind the scenes, Drycc Workflow instructs
+If you need to restart an application process, you may use `drycc pts:restart`. Behind the scenes, Drycc Workflow instructs
 Kubernetes to terminate the old process and launch a new one in its place.
 
 ```
@@ -300,7 +309,7 @@ scenic-icehouse-web-3291896318-rsekj               v2         up          web   
 scenic-icehouse-web-3291896318-vokg7               v2         up          web        1/1      0            2023-12-08T02:25:00UTC
 scenic-icehouse-background-3291896318-yf8kh        v2         up          web        1/1      0            2023-12-08T02:25:00UTC
 
-$ drycc ps:restart scenic-icehouse-background
+$ drycc pts:restart scenic-icehouse-background
 NAME                                               RELEASE    STATE       PTYPE      READY    RESTARTS    STARTED
 scenic-icehouse-web-3291896318-vokg7               v2         up          web        1/1      0           2023-12-08T02:25:00UTC
 scenic-icehouse-web-3291896318-rsekj               v2         up          web        1/1      0           2023-12-08T02:50:21UTC
@@ -311,6 +320,38 @@ scenic-icehouse-background-3291896318-yf8kh        v2         starting    web   
 Notice that the process name has changed from `scenic-icehouse-background-3291896318-yf8kh` to
 `scenic-icehouse-background-3291896318-yd87g`. In a multi-node Kubernetes cluster, this may also have the effect of scheduling
 the Pod to a new node.
+
+
+Use "drycc pts --help" for a list of pts command-line (process types info).
+
+## List an Application Process Types
+
+```
+$ drycc pts
+NAME          RELEASE    READY    UP-TO-DATE    AVAILABLE    STARTED                   
+web           v2         3/3      1             1            2023-12-08T02:25:00UTC    
+background    v2         1/1      1             1            2023-12-08T02:25:00UTC    
+```
+
+## Get deployment info of the application process type
+
+```
+$ drycc pts:describe web
+Container:    python-getting-started-web                   
+Image:        drycc/python-getting-started:latest          
+Command:      
+Args:         
+              - gunicorn                                   
+              - -c                                         
+              - gunicorn_config.py                         
+              - helloworld.wsgi:application                
+Limits:       
+              cpu 1                                                                                               
+              ephemeral-storage 2Gi                                                                               
+              memory 1Gi                                                                                          
+Liveness:     http-get headers=[] path=/geo/ port=8000 delay=120s timeout=10s period=20s #success=1 #failure=3    
+Readiness:    http-get headers=[] path=/geo/ port=8000 delay=120s timeout=10s period=20s #success=1 #failure=3  
+```
 
 [container]: ../reference-guide/terms.md#container
 [process model]: https://devcenter.heroku.com/articles/process-model
