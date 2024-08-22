@@ -184,6 +184,19 @@ Healthchecks:
 Configured health checks also modify the default application deploy behavior. When starting a new
 Pod, Workflow will wait for the health check to pass before moving onto the next Pod.
 
+## Autorollback
+By default, deployment failures will roll back to the previous successful version.
+If you don't want this to happen, you can disable.
+
+```
+$ drycc autorollback:disable
+```
+
+To re-enable autorollback.
+```
+drycc autorollback:enable
+```
+
 
 ## Isolate the Application
 

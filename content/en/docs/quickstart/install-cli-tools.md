@@ -45,5 +45,10 @@ $ drycc version
 v1.1.0
 ```
 
+Update workflow cli to latest release.
+```
+drycc update
+```
+
 !!! note
     Note that version numbers may vary as new releases become available

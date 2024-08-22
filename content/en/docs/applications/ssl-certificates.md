@@ -64,6 +64,22 @@ such as the Common Name, Subject Alt Names (SAN), fingerprint and more.
 
 This allows for wildcard certificates and multiple domains in the SAN without uploading duplicates.
 
+## Share a Certificate to collaborator
+List perm codes.
+```
+$ drycc perms:codes
+CODENAME    DESCRIPTION  
+use_app     Can use app     
+use_cert    Can use cert
+```
+
+Use `drycc perms:create` to allow another Drycc user to collaborate on your cert.
+
+```
+$ drycc perms:create otheruser use_cert cert_name
+Adding user otheruser as a collaborator for use_cert cert_name... done
+```
+
 ### Add a Certificate Chain
 
 Sometimes, your certificates (such as a self-signed or a cheap certificate) need additional

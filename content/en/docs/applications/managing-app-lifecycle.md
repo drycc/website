@@ -75,12 +75,20 @@ Use `drycc run` to execute commands on the deployed application.
 
 
 ## Share an Application
+List perm code.
+```
+$ drycc perms:codes
+CODENAME    DESCRIPTION  
+use_app     Can use app     
+use_cert    Can use cert    
+```
+
 
 Use `drycc perms:create` to allow another Drycc user to collaborate on your application.
 
 ```
 $ drycc perms:create otheruser perm_code uniqueid
-Adding otheruser to peachy-waxworks collaborators... done
+Adding user otheruser as a collaborator for use_app peachy-waxwork... done
 ```
 
 Use `drycc perms` to see who an application is currently shared with, and `drycc perms:delete` to remove a collaborator.

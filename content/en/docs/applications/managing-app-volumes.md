@@ -81,10 +81,10 @@ Upload.
 
 List files in myvolume.
 
-    $ /drycc-canary volumes:client ls vol://myvolume/
+    $ drycc volumes:client ls vol://myvolume/
     [2024-07-22T15:32:28+08:00]    5    testfile
 
 
 Delete testfle in myvolume.
 
-    $ /drycc-canary volumes:client rm vol://myvolume/testfile
+    $ drycc volumes:client rm vol://myvolume/testfile
