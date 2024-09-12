@@ -57,7 +57,7 @@ python-getting-started         demo         web        HTTPRoute    80          
 
 create a new route and attach gateway.
 ```
-drycc routes:create sleep --type=sleep --kind=HTTPRoute --port=8001
+drycc routes:create sleep --ptype=sleep --kind=HTTPRoute --port=8001
 drycc routes:attach sleep --gateway=python-getting-started --port=80
 ```
 

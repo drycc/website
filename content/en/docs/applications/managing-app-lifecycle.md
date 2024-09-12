@@ -18,10 +18,10 @@ You can see a record of changes to your application using `drycc releases`:
 
 ```
 $ drycc releases
-UUID                                    OWNER    VERSION    CREATED                 SUMMARY
-d2646499-b0b5-402e-a4e9-710bfee15701    dev      v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
-e8ad8e2e-b8fe-4319-9fa7-933460e19dd4    dev      v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
-d5e8f2ae-4af3-44b4-8e1a-bdb3a20bee71    dev      v1         2023-11-30T17:54:57Z    dev created initial release
+OWNER    STATE      VERSION    CREATED                 SUMMARY
+dev      succeed    v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
+dev      succeed    v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
+dev      succeed    v1         2023-11-30T17:54:57Z    dev created initial release
 ```
 
 ## Rollback a Release
@@ -39,20 +39,34 @@ and configuration from release v2:
 
 ```
 $ drycc releases
-UUID                                    OWNER    VERSION    CREATED                 SUMMARY
-d2646499-b0b5-402e-a4e9-710bfee15701    dev      v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
-e8ad8e2e-b8fe-4319-9fa7-933460e19dd4    dev      v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
-d5e8f2ae-4af3-44b4-8e1a-bdb3a20bee71    dev      v1         2023-11-30T17:54:57Z    dev created initial release
+OWNER    STATE      VERSION    CREATED                 SUMMARY
+dev      succeed    v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
+dev      succeed    v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
+dev      succeed    v1         2023-11-30T17:54:57Z    dev created initial release
 
 $ drycc rollback v2
 Rolled back to v2
 
 $ drycc releases
-UUID                                    OWNER    VERSION    CREATED                 SUMMARY
-d2646499-b0b5-402e-a4e9-710bfee15701    dev      v4         2023-12-04T10:20:46Z    dev rolled back to v2
-d2646499-b0b5-402e-a4e9-710bfee15701    dev      v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
-e8ad8e2e-b8fe-4319-9fa7-933460e19dd4    dev      v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
-d5e8f2ae-4af3-44b4-8e1a-bdb3a20bee71    dev      v1         2023-11-30T17:54:57Z    dev created initial release
+OWNER    STATE      VERSION    CREATED                 SUMMARY
+dev      succeed    v4         2023-12-04T10:20:46Z    dev rolled back to v2
+dev      succeed    v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
+dev      succeed    v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
+dev      succeed    v1         2023-11-30T17:54:57Z    dev created initial release
+```
+
+Only rollback web process type:
+```
+$ drycc rollback v3 web
+Rolled back to v3
+
+$ drycc releases
+OWNER    STATE      VERSION    CREATED                 SUMMARY
+dev      succeed    v5         2023-12-04T10:23:49Z    dev rolled back to v3
+dev      succeed    v4         2023-12-04T10:20:46Z    dev rolled back to v2
+dev      succeed    v3         2023-12-04T10:17:46Z    dev deleted PIP_INDEX_URL, DISABLE_COLLECTSTATIC
+dev      succeed    v2         2023-12-01T10:20:22Z    dev added IMAGE_PULL_POLICY, PIP_INDEX_URL, PORT, DISABLE_COLLEC[...]
+dev      succeed    v1         2023-11-30T17:54:57Z    dev created initial release
 ```
 
 ## Run One-off Administration Tasks
@@ -75,23 +89,16 @@ Use `drycc run` to execute commands on the deployed application.
 
 
 ## Share an Application
-List perm code.
-```
-$ drycc perms:codes
-CODENAME    DESCRIPTION  
-use_app     Can use app     
-use_cert    Can use cert    
-```
 
 
-Use `drycc perms:create` to allow another Drycc user to collaborate on your application.
+Use `drycc perms:add` to allow another Drycc user to collaborate on your application.
 
 ```
-$ drycc perms:create otheruser perm_code uniqueid
-Adding user otheruser as a collaborator for use_app peachy-waxwork... done
+$ drycc perms:add otheruser view,change,delete
+Adding user otheruser as a collaborator for view,change,delete peachy-waxwork... done
 ```
 
-Use `drycc perms` to see who an application is currently shared with, and `drycc perms:delete` to remove a collaborator.
+Use `drycc perms` to see who an application is currently shared with, and `drycc perms:remove` to remove a collaborator.
 
 !!! note
     Collaborators can do anything with an application that its owner can do, except delete the application.

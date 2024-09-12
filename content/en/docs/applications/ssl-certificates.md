@@ -43,7 +43,7 @@ Once the SSL certificate is provisioned and your cert is confirmed, you must rou
 your domain through Drycc. Unless you've already done so, add the domain specified when generating
 the CSR to your app with:
 
-    $ drycc domains:add www.example.com --type==web -a foo
+    $ drycc domains:add www.example.com --ptype==web -a foo
     Adding www.example.com to foo... done
 
 
@@ -52,7 +52,7 @@ the CSR to your app with:
 Add your certificate, any intermediate certificates, and private key to the endpoint with the
 `certs:add` command.
 
-    $ drycc certs:add example-com server.crt server.key
+    $ drycc certs:add example-com server.crt server.key -a foo
     Adding SSL endpoint... done
     www.example.com
 
@@ -64,21 +64,6 @@ such as the Common Name, Subject Alt Names (SAN), fingerprint and more.
 
 This allows for wildcard certificates and multiple domains in the SAN without uploading duplicates.
 
-## Share a Certificate to collaborator
-List perm codes.
-```
-$ drycc perms:codes
-CODENAME    DESCRIPTION  
-use_app     Can use app     
-use_cert    Can use cert
-```
-
-Use `drycc perms:create` to allow another Drycc user to collaborate on your cert.
-
-```
-$ drycc perms:create otheruser use_cert cert_name
-Adding user otheruser as a collaborator for use_cert cert_name... done
-```
 
 ### Add a Certificate Chain
 
@@ -90,7 +75,7 @@ into one file and give that to Drycc. Importantly, your site’s certificate mus
 
 After that, you can add them to Drycc with the `certs:add` command:
 
-    $ drycc certs:add example-com server.bundle server.key
+    $ drycc certs:add example-com server.bundle server.key -a foo
     Adding SSL endpoint... done
     www.example.com
 
@@ -99,13 +84,13 @@ After that, you can add them to Drycc with the `certs:add` command:
 Certificates are not automagically connected up to domains, instead you will have to attach a
 certificate to a domain
 
-    $ drycc certs:attach example-com example.com
+    $ drycc certs:attach example-com example.com -a foo
 
 Each certificate can be connected to many domains. There is no need to upload duplicates.
 
 To remove an association
 
-    $ drycc certs:detach example-com example.com
+    $ drycc certs:detach example-com example.com -a foo
 
 ## Endpoint overview
 
@@ -120,7 +105,7 @@ You can verify the details of your domain's SSL configuration with `drycc certs`
 
 or by looking at at each certificates detailed information
 
-    $ drycc certs:info example-com
+    $ drycc certs:info example-com -a foo
 
     === bar-com Certificate
     Common Name(s):     example.com
@@ -181,7 +166,7 @@ To disable ACM with the following command:
 
 You can remove a certificate using the `certs:remove` command:
 
-    $ drycc certs:remove my-cert
+    $ drycc certs:remove my-cert -a foo
     Removing www.example.com... Done.
 
 ## Swapping out certificates
@@ -195,8 +180,8 @@ signifies the expiry year. This allows for `example-com-2018` when a new certifi
 Assuming all applications are already using `example-com-2017` the following commands can be ran,
 chained together or otherwise:
 
-    $ drycc certs:detach example-com-2017 example.com
-    $ drycc certs:attach example-com-2018 example.com
+    $ drycc certs:detach example-com-2017 example.com -a foo
+    $ drycc certs:attach example-com-2018 example.com -a foo
 
 This will take care of a singular domain which allows the operator to verify everything went
 as planned and slowly roll it out to any other application using the same method.

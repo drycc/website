@@ -7,7 +7,7 @@ weight: 13
 
 You can use `drycc domains` to add or remove custom domains to the application:
 
-    $ drycc domains:add hello.bacongobbler.com --type=web
+    $ drycc domains:add hello.bacongobbler.com --ptype=web
     Adding hello.bacongobbler.com to finest-woodshed... done
 
 Once that's done, you can go into a DNS registrar and set up a CNAME from the new

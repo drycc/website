@@ -99,9 +99,9 @@ $ drycc scale web=2 -a proper-barbecue
 Scaling processes... but first, coffee!
 done in 36s
 
-NAME                                RELEASE    STATE    TYPE       STARTED
-proper-barbecue-v18-web-rk644       v18        up       web        2023-12-08T03:09:25UTC
-proper-barbecue-v18-web-0ag04       v18        up       web        2023-12-08T03:09:25UTC
+NAME                                RELEASE    STATE    PTYPE       STARTED
+proper-barbecue-v18-web-rk644       v18        up       web         2023-12-08T03:09:25UTC
+proper-barbecue-v18-web-0ag04       v18        up       web         2023-12-08T03:09:25UTC
 ```
 
 Congratulations! You have deployed, configured, and scaled your first application using Drycc Workflow.

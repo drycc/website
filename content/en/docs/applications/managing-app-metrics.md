@@ -16,8 +16,8 @@ Create an authentication token using the drycc client.
  !    To proceed, type "yes" !
 
 > yes
-USERNAME    TOKEN                                                                                              
-admin       1F2c7A802aF640fd9F31dD846AdDf56BcMsay
+UUID                                  USERNAME    TOKEN                                                                                              
+58176cf1-37a8-4c52-9b27-4c7a47269dfb  admin       1F2c7A802aF640fd9F31dD846AdDf56BcMsay
 ```
 
 ## Add scrape configurations for prometheus

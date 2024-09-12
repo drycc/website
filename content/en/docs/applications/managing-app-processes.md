@@ -12,7 +12,7 @@ web-facing processes that handle HTTP traffic, background worker processes that 
 streams from the Twitter API.
 
 By using a Procfile, either checked in to your application or provided via the CLI you can specify the name of the type
-and the application command that should run. To spawn other process types, use `drycc scale <type>=<n>` to scale those
+and the application command that should run. To spawn other process types, use `drycc scale <ptype>=<n>` to scale those
 types accordingly.
 
 ## Default Process Types
@@ -191,8 +191,8 @@ And then review the scaling rule that was created for `web`
 
 ```
 $ drycc autoscale:list
-UUID                                    TYPE    PERCENT    MIN    MAX
-e916b333-53c1-4d4c-ac5a-23e6961fb544    web     75         3      8
+PTYPE    PERCENT    MIN    MAX
+web      75         3      8
 ```
 
 Remove scaling rule

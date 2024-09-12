@@ -47,7 +47,7 @@ or with `drycc config:push` and a local .env file.
 
 It can also modify environment variables for a process type of application.
 
-    $ drycc config:set FOO=1 BAR=baz  --type=web
+    $ drycc config:set FOO=1 BAR=baz --ptype=web
 
 ## Attach to Backing Services
 
@@ -121,7 +121,7 @@ Health checks can be configured on a per-proctype basis for each application usi
 configure a `httpGet` liveness probe:
 
 ```
-$ drycc healthchecks:set liveness httpGet 80 --type web
+$ drycc healthchecks:set liveness httpGet 80 --ptype web
 Applying livenessProbe healthcheck... done
 
 App:             peachy-waxworks
@@ -154,7 +154,7 @@ Healthchecks:
 To configure an `exec` readiness probe:
 
 ```
-$ drycc healthchecks:set readiness exec -- /bin/echo -n hello --type web
+$ drycc healthchecks:set readiness exec -- /bin/echo -n hello --ptype web
 Applying readinessProbe healthcheck... done
 
 App:             peachy-waxworks
@@ -169,7 +169,7 @@ Healthchecks:
 You can overwrite a probe by running `drycc healthchecks:set` again:
 
 ```
-$ drycc healthchecks:set readiness httpGet 80 --type web
+$ drycc healthchecks:set readiness httpGet 80 --ptype web
 Applying livenessProbe healthcheck... done
 
 App:             peachy-waxworks
@@ -183,6 +183,31 @@ Healthchecks:
 
 Configured health checks also modify the default application deploy behavior. When starting a new
 Pod, Workflow will wait for the health check to pass before moving onto the next Pod.
+
+
+## Autodeploy
+By default, Changes the config, limits or healthchecks and so on will trigger deploy.
+If you don't want deploy, you can disable.
+
+```
+$ drycc autodeploy:disable
+```
+
+To re-enable autodeploy.
+```
+drycc autodeploy:enable
+```
+
+you can deploy by executing the following command.
+deploy all ptypes
+```
+drycc releases:deploy
+
+```
+deploy web process type, and support `--force` option to force deploy.
+```
+drycc releases:deploy web --force
+```
 
 ## Autorollback
 By default, deployment failures will roll back to the previous successful version.
