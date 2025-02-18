@@ -14,7 +14,9 @@ CONTAINERD_RUNTIMES="${CONTAINERD_RUNTIMES:-runc}"
 CONTAINERD_CONFIG_PATH="${CONTAINERD_CONFIG_PATH:-/var/lib/rancher/k3s/agent/etc/containerd}"
 mkdir -p "${CONTAINERD_CONFIG_PATH}"
 CONTAINERD_CONFIG_FILE="${CONTAINERD_CONFIG_PATH}/config.toml.tmpl"
-
+REGISTRY_CONFIG_PATH="${REGISTRY_CONFIG_PATH:-/etc/rancher/k3s/}"
+mkdir -p "${REGISTRY_CONFIG_PATH}"
+REGISTRY_CONFIG_FILE="${CONTAINERD_CONFIG_PATH}/registries.yaml"
 
 # initArch discovers the architecture for this system.
 init_arch() {
@@ -159,6 +161,8 @@ function install_runtime {
     containerd_default_runtime="runc"
   fi
   cat << EOF > "${CONTAINERD_CONFIG_FILE}"
+{{ template "base" . }}
+
 [plugins.cri.containerd]
   snapshotter = "overlayfs"
   default_runtime_name = "${containerd_default_runtime}"
@@ -200,18 +204,24 @@ EOF
 
 function configure_registry {
   if [[ "${INSTALL_DRYCC_MIRROR}" == "cn" ]]; then
-    cat << EOF >> "${CONTAINERD_CONFIG_FILE}"
-[plugins.cri.registry.mirrors]
-[plugins.cri.registry.mirrors."docker.io"]
-  endpoint = ["https://docker-mirror.drycc.cc", "https://registry-1.docker.io"]
-[plugins.cri.registry.mirrors."quay.io"]
-  endpoint = ["https://quay-mirror.drycc.cc", "https://quay.io"]
-[plugins.cri.registry.mirrors."gcr.io"]
-  endpoint = ["https://gcr-mirror.drycc.cc", "https://gcr.io"]
-[plugins.cri.registry.mirrors."ghcr.io"]
-  endpoint = ["https://ghcr-mirror.drycc.cc", "https://ghcr.io"]
-[plugins.cri.registry.mirrors."registry.k8s.io"]
-  endpoint = ["https://k8s-mirror.drycc.cc", "https://registry.k8s.io"]
+    cat << EOF >> "${REGISTRY_CONFIG_FILE}"
+mirrors:
+  docker.io:
+    endpoint:
+    - "https://docker-mirror.drycc.cc"
+    - "https://registry-1.docker.io"
+  quay.io:
+    endpoint:
+    - "https://quay-mirror.drycc.cc"
+    - "https://quay.io"
+  gcr.io:
+    endpoint:
+    - "https://quay-mirror.drycc.cc"
+    - "https://gcr.io"
+  registry.k8s.io:
+    endpoint:
+    - "https://k8s-mirror.drycc.cc"
+    - "https://registry.k8s.io"
 EOF
   fi
 }
