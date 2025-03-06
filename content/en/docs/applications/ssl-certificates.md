@@ -97,10 +97,8 @@ To remove an association
 You can verify the details of your domain's SSL configuration with `drycc certs`.
 
     $ drycc certs
-
-         Name     |    Common Name    | SubjectAltName    |         Expires         |   Fingerprint   |   Domains    |   Updated   |   Created
-    +-------------+-------------------+-------------------+-------------------------+-----------------+--------------+-------------+-------------+
-      example-com |     example.com   | blog.example.com  | 31 Dec 2017 (in 1 year) | 8F:8E[...]CD:EB |  example.com | 30 Jan 2016 | 29 Jan 2016
+    NAME           COMMON-NAME    EXPIRES        SAN                 DOMAINS           
+    example-com    example.com    14 Jan 2017    blog.example.com    example.com
 
 
 or by looking at at each certificates detailed information

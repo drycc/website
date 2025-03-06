@@ -18,13 +18,13 @@ Use `drycc config` to modify environment variables for a deployed application.
     $ drycc help config
     Valid commands for config:
 
-    config:list        list environment variables for an app
+    config:info        an app config info
     config:set         set environment variables for an app
     config:unset       unset environment variables for an app
-    config:pull        extract environment variables to .env
-    config:push        set environment variables from .env
-    config:attach      attach config group top a ptype for an app
-    config:detach      detach config group top a ptype for an app
+    config:pull        pull environment variables to the path
+    config:push        push environment variables from the path
+    config:attach      selects a environment groups to attach an app ptype
+    config:detach      selects a environment groups to detach an app ptype
 
     Use `drycc help [command]` to learn more.
 
@@ -47,9 +47,21 @@ or with `drycc config:push` and a local .env file.
     BAR: baz
     TIDE: high
 
-It can also modify environment variables for a process type of application.
+It can modify environment variables for a process type of application.
 
     $ drycc config:set FOO=1 BAR=baz --ptype=web
+
+It can also modify environment variables for a environment group.
+
+    $ drycc config:set FOO1=1 BAR1=baz --group=web.env
+
+Then bind this environment variable group to the web.
+
+    $ drycc config:attach web web.env
+
+Of course, you can also detach it.
+
+    $ drycc config:detach web web.env
 
 ## Attach to Backing Services
 

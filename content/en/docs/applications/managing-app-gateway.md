@@ -51,13 +51,13 @@ Same as the above， the web process type already bind the gateway and servies.
 
 ```
 # drycc routes
-NAME                           OWNER        PTYPE      KIND         SERVICE-PORT    GATEWAY                           LISTENER-PORT             
-python-getting-started         demo         web        HTTPRoute    80              python-getting-started            80  
+NAME                           OWNER        KIND           GATEWAYS                              SERVICES       
+python-getting-started         demo         HTTPRoute      ["python-getting-started:80"]         ["python-getting-started:80"]      
 ```
 
 create a new route and attach gateway.
 ```
-drycc routes:create sleep --ptype=sleep --kind=HTTPRoute --port=8001
+drycc routes:add sleep HTTPRoute --ptype=sleep  sleep:8001,100
 drycc routes:attach sleep --gateway=python-getting-started --port=80
 ```
 

@@ -75,7 +75,7 @@ Drycc applications [use one-off processes for admin tasks][] like database migra
 
 Use `drycc run` to execute commands on the deployed application.
 
-    $ drycc run 'ls -l'
+    $ drycc run -- 'ls -l'
     Running `ls -l`...
 
     total 28

@@ -15,9 +15,11 @@ Use `drycc volumes` to mount a volume for a deployed application's processes.
     $ drycc help volumes
     Valid commands for volumes:
 
-    volumes:create           create a volume for the application
+    volumes:add              create a volume for the application
+    volumes:expand           expand a volume for the application
     volumes:list             list volumes in the application
-    volumes:delete           delete a volume from the application
+    volumes:info             print information about a volume
+    volumes:remove           delete a volume from the application
     volumes:client           the client used to manage volume files
     volumes:mount            mount a volume to process of the application
     volumes:unmount          unmount a volume from process of the application
@@ -26,14 +28,14 @@ Use `drycc volumes` to mount a volume for a deployed application's processes.
 
 ## Create a volume for the application
 
-You can create a csi volume with the `drycc volumes:create` command.
+You can create a csi volume with the `drycc volumes:add` command.
 
-    $ drycc volumes:create myvolume 200M
+    $ drycc volumes:add myvolume 200M
     Creating myvolumes to scenic-icehouse... done
 
 Or use an existing nfs server
 
-    $ drycc volumes:create myvolume 200M -t nfs --nfs-server=nfs.drycc.com --nfs-path=/
+    $ drycc volumes:add myvolume 200M -t nfs --nfs-server=nfs.drycc.com --nfs-path=/
     Creating myvolumes to scenic-icehouse... done
 
 ## List volumes in the application
@@ -41,8 +43,8 @@ Or use an existing nfs server
 After volume is created, you can list the volumes in this application.
 
     $ drycc volumes:list
-    === scenic-icehouse volumes
-    --- myvolumes     200M
+    NAME        OWNER    TYPE    PTYPE    PATH     SIZE
+    myvolumes   admin    nfs                       200M
 
 ## Mount a volume
 
@@ -55,17 +57,16 @@ use the command of `drycc volumes:mount`. When volume is mounted, a new release 
 And use `drycc volumes:list` show mount detail.
 
     $ drycc volumes:list
-    === scenic-icehouse volumes
-    --- myvolumes     200M
-    web               /data/web
+    NAME        OWNER    TYPE    PTYPE    PATH         SIZE
+    myvolumes   admin    nfs     web      /data/web    200M
 
-If you don't need the volume, use `drycc volumes:unmount` to unmount the volume and then use  `drycc volumes:delete` to delete the volume from the application.
+If you don't need the volume, use `drycc volumes:unmount` to unmount the volume and then use  `drycc volumes:remove` to delete the volume from the application.
 Before deleting volume, the volume has to be unmounted.
 
     $ drycc volumes:unmount myvolumes web
     Unmounting volume... done
 
-    $ drycc volumes:delete myvolumes
+    $ drycc volumes:remove myvolumes
     Deleting myvolumes from scenic-icehouse... done
 
 ## Use volume client to manage volume files.

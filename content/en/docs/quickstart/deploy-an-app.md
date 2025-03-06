@@ -74,9 +74,6 @@ change how the application behaves:
 ```
 $ drycc config:set POWERED_BY="Container Images + Kubernetes" -a proper-barbecue
 Creating config... done
-
-UUID                                    OWNER    NAME                 VALUE
-04bb6e45-9221-4843-a1f9-acc7fded3b06    dev      POWERED_BY           Container Images + Kubernetes
 ```
 
 Behind the scenes, Workflow creates a new release for your application and uses

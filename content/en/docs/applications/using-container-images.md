@@ -74,7 +74,7 @@ to attach credentials to your application. These credentials are the same as you
 To deploy private Docker images, take the following steps:
 
 * Gather the username and password for the registry, such as a [Quay.io Robot Account][] or a [GCR.io Long Lived Token][]
-* Run `drycc registry:set username=<the-user> password=<secret> -a <application-name>`
+* Run `drycc registry:set <the-user> <secret> -a <application-name>`
 * Now perform `drycc pull` as normal, against an image in the private registry
 
 When using a [GCR.io Long Lived Token][], the JSON blob will have to be compacted first using a
@@ -82,7 +82,7 @@ tool like [jq][] and then used in the password field in `drycc registry:set`. Fo
 `_json_key`. For example:
 
 ```
-drycc registry:set username=_json_key password="$(cat google_cloud_cred.json | jq -c .)"
+drycc registry:set _json_key "$(cat google_cloud_cred.json | jq -c .)"
 ```
 
 When using a private registry the docker images are no longer pulled into the Drycc Internal Registry via

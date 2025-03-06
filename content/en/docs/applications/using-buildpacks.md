@@ -128,7 +128,7 @@ are pushing.
 
 To use a custom buildpack, you need create a `.pack_builder` file in your root path app.
 
-    $  tee > .pack_builder << EOF
+    $  tee > .pack-builder << EOF
        > registry.drycc.cc/drycc/buildpacks:bookworm
        > EOF
 
@@ -148,7 +148,7 @@ For example, to use a custom buildpack hosted at a private GitHub URL, ensure th
 key exists in your [GitHub settings][]. Then set `SSH_KEY` to the corresponding SSH private key
 and set `.pack_builder` to the builder image:
 
-    $  tee > .pack_builder << EOF
+    $  tee > .pack-builder << EOF
        > registry.drycc.cc/drycc/buildpacks:bookworm
        > EOF
     $ git add .buildpack
