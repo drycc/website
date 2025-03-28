@@ -208,18 +208,22 @@ function configure_registry {
 mirrors:
   docker.io:
     endpoint:
+    - "https://docker.m.daocloud.io"
     - "https://docker-mirror.drycc.cc"
     - "https://registry-1.docker.io"
   quay.io:
     endpoint:
+    - "https://quay.m.daocloud.io"
     - "https://quay-mirror.drycc.cc"
     - "https://quay.io"
   gcr.io:
     endpoint:
+    - "https://gcr.m.daocloud.io"
     - "https://quay-mirror.drycc.cc"
     - "https://gcr.io"
   registry.k8s.io:
     endpoint:
+    - "https://k8s.m.daocloud.io"
     - "https://k8s-mirror.drycc.cc"
     - "https://registry.k8s.io"
 EOF
