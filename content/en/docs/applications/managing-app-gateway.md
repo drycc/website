@@ -22,7 +22,7 @@ python-getting-started    tcp-80-0       80       HTTP        101.65.132.51
 
 You can also add a port in this gateway or create a one.
 ```
-# drycc gateways:add python-getting-started --port=443 --protocol=HTTPS
+# drycc gateways add python-getting-started --port=443 --protocol=HTTPS
 Adding gateway python-getting-started to python-getting-started... done     
 ```
 
@@ -40,8 +40,8 @@ web        80      TCP         8000           python-getting-started.python-gett
 
 Add a new service for process type
 ```
-# drycc services:add --help
-# drycc services:add sleep 8001:8001
+# drycc services add --help
+# drycc services add sleep 8001:8001
 ```
 
 ## Create Route for an Application
@@ -57,8 +57,8 @@ python-getting-started         demo         HTTPRoute      ["python-getting-star
 
 create a new route and attach gateway.
 ```
-drycc routes:add sleep HTTPRoute --ptype=sleep  sleep:8001,100
-drycc routes:attach sleep --gateway=python-getting-started --port=80
+drycc routes add sleep HTTPRoute --ptype=sleep  sleep:8001,100
+drycc routes attach sleep --gateway=python-getting-started --port=80
 ```
 
 

@@ -14,10 +14,10 @@ For **Dockerfile** based application deploys via `git push`, Drycc Workflow iden
 
 - See [this document](../users/ssh-keys.md#generate-an-ssh-key) for instructions on how to generate an SSH key.
 
-- Run `drycc keys:add` to upload your SSH key to Drycc Workflow.
+- Run `drycc keys add` to upload your SSH key to Drycc Workflow.
 
 ```
-$ drycc keys:add ~/.ssh/id_drycc.pub
+$ drycc keys add ~/.ssh/id_drycc.pub
 Uploading id_drycc.pub to drycc... done
 ```
 
@@ -42,7 +42,7 @@ In order to deploy Dockerfile applications, they must conform to the following r
 * The Container image must contain [bash](https://www.gnu.org/software/bash/) to run processes.
 
 !!! note
-    Note that if you are using a private registry of any kind (`gcr` or other) the application environment must include a `$PORT` config variable that matches the `EXPOSE`'d port, example: `drycc config:set PORT=5000`. See [Configuring Registry](../installing-workflow/configuring-registry/#configuring-off-cluster-private-registry) for more info.
+    Note that if you are using a private registry of any kind (`gcr` or other) the application environment must include a `$PORT` config variable that matches the `EXPOSE`'d port, example: `drycc config set PORT=5000`. See [Configuring Registry](../installing-workflow/configuring-registry/#configuring-off-cluster-private-registry) for more info.
 
 
 ## Create an Application
@@ -135,11 +135,11 @@ As of Workflow v2.13.0, users can inject their application config into the Conta
 to their application:
 
 ```
-$ drycc config:set DRYCC_DOCKER_BUILD_ARGS_ENABLED=1
+$ drycc config set DRYCC_DOCKER_BUILD_ARGS_ENABLED=1
 ```
 
-Every environment variable set with `drycc config:set` will then be available for use inside the
-user's Dockerfile. For example, if a user runs `drycc config:set POWERED_BY=Workflow`,
+Every environment variable set with `drycc config set` will then be available for use inside the
+user's Dockerfile. For example, if a user runs `drycc config set POWERED_BY=Workflow`,
 the user can utilize that build argument in their Dockerfile:
 
 ```

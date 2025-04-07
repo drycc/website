@@ -41,7 +41,7 @@ friendly (and sometimes funny) name.
 ```
 $ drycc create --no-remote
 Creating Application... done, created proper-barbecue
-If you want to add a git remote for this app later, use `drycc git:remote -a proper-barbecue`
+If you want to add a git remote for this app later, use `drycc git remote -a proper-barbecue`
 ```
 
 Our application has been created and named `proper-barbecue`. As with the
@@ -68,11 +68,11 @@ sends traffic to the right application. The router sends traffic for
 ## Change Application Configuration
 
 Next, let's change some configuration using the CLI. Our example app is built
-to read configuration from the environment. By using `drycc config:set` we can
+to read configuration from the environment. By using `drycc config set` we can
 change how the application behaves:
 
 ```
-$ drycc config:set POWERED_BY="Container Images + Kubernetes" -a proper-barbecue
+$ drycc config set POWERED_BY="Container Images + Kubernetes" -a proper-barbecue
 Creating config... done
 ```
 

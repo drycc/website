@@ -103,17 +103,17 @@ Plugins allow developers to extend the functionality of the Drycc Client, adding
 If an unknown command is specified, the client will attempt to execute the command as a dash-separated command. In this case, `drycc resource:command` will execute `drycc-resource` with the argument list `command`. In full form:
 
     $ # these two are identical
-    $ drycc accounts:list
+    $ drycc accounts list
     $ drycc-accounts list
 
 Any flags after the command will also be sent to the plugin as an argument:
 
     $ # these two are identical
-    $ drycc accounts:list --debug
+    $ drycc accounts list --debug
     $ drycc-accounts list --debug
 
 But flags preceding the command will not:
 
     $ # these two are identical
-    $ drycc --debug accounts:list
+    $ drycc --debug accounts list
     $ drycc-accounts list

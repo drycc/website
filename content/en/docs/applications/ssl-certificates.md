@@ -43,7 +43,7 @@ Once the SSL certificate is provisioned and your cert is confirmed, you must rou
 your domain through Drycc. Unless you've already done so, add the domain specified when generating
 the CSR to your app with:
 
-    $ drycc domains:add www.example.com --ptype==web -a foo
+    $ drycc domains add www.example.com --ptype==web -a foo
     Adding www.example.com to foo... done
 
 
@@ -52,7 +52,7 @@ the CSR to your app with:
 Add your certificate, any intermediate certificates, and private key to the endpoint with the
 `certs:add` command.
 
-    $ drycc certs:add example-com server.crt server.key -a foo
+    $ drycc certs add example-com server.crt server.key -a foo
     Adding SSL endpoint... done
     www.example.com
 
@@ -73,9 +73,9 @@ into one file and give that to Drycc. Importantly, your site’s certificate mus
 
     $ cat server.crt server.ca > server.bundle
 
-After that, you can add them to Drycc with the `certs:add` command:
+After that, you can add them to Drycc with the `certs add` command:
 
-    $ drycc certs:add example-com server.bundle server.key -a foo
+    $ drycc certs add example-com server.bundle server.key -a foo
     Adding SSL endpoint... done
     www.example.com
 
@@ -84,13 +84,13 @@ After that, you can add them to Drycc with the `certs:add` command:
 Certificates are not automagically connected up to domains, instead you will have to attach a
 certificate to a domain
 
-    $ drycc certs:attach example-com example.com -a foo
+    $ drycc certs attach example-com example.com -a foo
 
 Each certificate can be connected to many domains. There is no need to upload duplicates.
 
 To remove an association
 
-    $ drycc certs:detach example-com example.com -a foo
+    $ drycc certs detach example-com example.com -a foo
 
 ## Endpoint overview
 
@@ -103,7 +103,7 @@ You can verify the details of your domain's SSL configuration with `drycc certs`
 
 or by looking at at each certificates detailed information
 
-    $ drycc certs:info example-com -a foo
+    $ drycc certs info example-com -a foo
 
     === bar-com Certificate
     Common Name(s):     example.com
@@ -136,7 +136,7 @@ configured correctly.
 To enforce all HTTP requests be redirected to HTTPS, TLS can be enforced at the router level by
 running
 
-    $ drycc tls:force:enable -a foo
+    $ drycc tls force enable -a foo
     Enabling https-only requests for foo... done
 
 Users hitting the HTTP endpoint for the application will now receive a 301 redirect to the HTTPS
@@ -144,7 +144,7 @@ endpoint.
 
 To disable enforced TLS, run
 
-    $ drycc tls:force:disable -a foo
+    $ drycc tls force disable -a foo
     Disabling https-only requests for foo... done
 
 ## Automated Certificate Management
@@ -154,17 +154,17 @@ Certificates handled by ACM automatically renew one month before they expire, an
 Automated Certificate Management uses Let’s Encrypt, the free, automated, and open certificate authority for managing your application’s TLS certificates. Let’s Encrypt is run for the public benefit by the Internet Security Research Group (ISRG).
 
 To enable ACM with the following command:
-    $ drycc tls:auto:enable -a foo
+    $ drycc tls auto enable -a foo
 
 To disable ACM with the following command:
-    $ drycc tls:auto:disable -a foo
+    $ drycc tls auto disable -a foo
 
 
 ## Remove Certificate
 
 You can remove a certificate using the `certs:remove` command:
 
-    $ drycc certs:remove my-cert -a foo
+    $ drycc certs remove my-cert -a foo
     Removing www.example.com... Done.
 
 ## Swapping out certificates
@@ -178,8 +178,8 @@ signifies the expiry year. This allows for `example-com-2018` when a new certifi
 Assuming all applications are already using `example-com-2017` the following commands can be ran,
 chained together or otherwise:
 
-    $ drycc certs:detach example-com-2017 example.com -a foo
-    $ drycc certs:attach example-com-2018 example.com -a foo
+    $ drycc certs detach example-com-2017 example.com -a foo
+    $ drycc certs attach example-com-2018 example.com -a foo
 
 This will take care of a singular domain which allows the operator to verify everything went
 as planned and slowly roll it out to any other application using the same method.
@@ -199,7 +199,7 @@ the case, your certificate may be considered untrusted for many browsers.
 If you have uploaded a certificate that was signed by a root authority but you get the message that
 it is not trusted, then something is wrong with the certificate. For example, it may be missing
 [intermediary certificates][]. If so, download the intermediary certificates from your SSL provider,
-remove the certificate from Drycc and re-run the `certs:add` command.
+remove the certificate from Drycc and re-run the `certs add` command.
 
 [RapidSSL]: https://www.rapidssl.com/
 [buy an SSL certificate with RapidSSL]: https://www.rapidssl.com/buy-ssl/

@@ -13,10 +13,10 @@ For **Buildpack** based application deploys via `git push`, Drycc Workflow ident
 
 - See [this document](../users/ssh-keys.md#generate-an-ssh-key) for instructions on how to generate an SSH key.
 
-- Run `drycc keys:add` to upload your SSH key to Drycc Workflow.
+- Run `drycc keys add` to upload your SSH key to Drycc Workflow.
 
 ```
-$ drycc keys:add ~/.ssh/id_drycc.pub
+$ drycc keys add ~/.ssh/id_drycc.pub
 Uploading id_drycc.pub to drycc... done
 ```
 
@@ -139,8 +139,8 @@ On your next `git push`, the custom buildpack will be used.
 To pull code from private repositories, set the `SSH_KEY` environment variable to a private key
 which has access. Use either the path of a private key file or the raw key material:
 
-    $ drycc config:set SSH_KEY=/home/user/.ssh/id_rsa
-    $ drycc config:set SSH_KEY="""-----BEGIN RSA PRIVATE KEY-----
+    $ drycc config set SSH_KEY=/home/user/.ssh/id_rsa
+    $ drycc config set SSH_KEY="""-----BEGIN RSA PRIVATE KEY-----
     (...)
     -----END RSA PRIVATE KEY-----"""
 

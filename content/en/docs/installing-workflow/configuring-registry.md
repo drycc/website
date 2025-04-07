@@ -16,7 +16,7 @@ Every component that relies on a registry uses two inputs for configuration:
 
 The Helm chart for Drycc Workflow can be easily configured to connect Workflow components to off-cluster registry. Drycc Workflow supports external registries which provide either short-lived tokens that are valid only for a specified amount of time or long-lived tokens (basic username/password) which are valid forever for authenticating to them. For those registries which provide short lived tokens for authentication, Drycc Workflow will generate and refresh them such that the deployed apps will only have access to the short-lived tokens and not to the actual credentials for the registries.
 
-When using a private registry the container images are no longer pulled by Drycc Workflow Controller but rather are managed by [Kubernetes][]. This will increase security and overall speed, however the `port` information can no longer be discovered. Instead the `port` information can be set via `drycc config:set PORT=<port>` prior to deploying the application.
+When using a private registry the container images are no longer pulled by Drycc Workflow Controller but rather are managed by [Kubernetes][]. This will increase security and overall speed, however the `port` information can no longer be discovered. Instead the `port` information can be set via `drycc config set PORT=<port>` prior to deploying the application.
 
 Drycc Workflow currently supports:
 

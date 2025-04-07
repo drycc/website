@@ -183,14 +183,14 @@ This feature is built on top of [Horizontal Pod Autoscaling][HPA] in Kubernetes 
 	This is an alpha feature. It is recommended to be on the latest Kubernetes when using this feature.
 
 ```
-$ drycc autoscale:set web --min=3 --max=8 --cpu-percent=75
+$ drycc autoscale set web --min=3 --max=8 --cpu-percent=75
 Applying autoscale settings for process type web on scenic-icehouse... done
 
 ```
 And then review the scaling rule that was created for `web`
 
 ```
-$ drycc autoscale:list
+$ drycc autoscale list
 PTYPE    PERCENT    MIN    MAX
 web      75         3      8
 ```
@@ -198,7 +198,7 @@ web      75         3      8
 Remove scaling rule
 
 ```
-$ drycc autoscale:unset web
+$ drycc autoscale unset web
 Removing autoscale for process type web on scenic-icehouse... done
 ```
 
@@ -221,7 +221,7 @@ python-getting-started-web-69b7d4bfdc-kl4xf up (v2)
 
 fetch the container logs:
 ```
-$ drycc ps:logs -f python-getting-started-web-69b7d4bfdc-kl4xf
+$ drycc ps logs -f python-getting-started-web-69b7d4bfdc-kl4xf
 [2024-05-24 07:14:39 +0000] [1] [INFO] Starting gunicorn 20.1.0
 [2024-05-24 07:14:39 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
 [2024-05-24 07:14:39 +0000] [1] [INFO] Using worker: gevent
@@ -236,7 +236,7 @@ $ drycc ps:logs -f python-getting-started-web-69b7d4bfdc-kl4xf
 List the containers:
 
 ```
-$ drycc ps:describe python-getting-started-web-69b7d4bfdc-kl4xf
+$ drycc ps describe python-getting-started-web-69b7d4bfdc-kl4xf
 Container:        python-getting-started-web                   
 Image:            drycc/python-getting-started:latest          
 Command:          
@@ -257,7 +257,7 @@ Delete the containers.
 Due to the set number of replicas, a new container will be launched to meet the quantity requirement.
 
 ```
-$ drycc ps:delete python-getting-started-web-69b7d4bfdc-kl4xf
+$ drycc ps delete python-getting-started-web-69b7d4bfdc-kl4xf
 Deleting python-getting-started-web-69b7d4bfdc-kl4xf from python-getting-started... done
 ```
 
@@ -278,7 +278,7 @@ python-getting-started-web-69b7d4bfdc-kl4xf up (v2)
 Get a shell to the running container:
 
 ```
-$ drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -it -- bash
+$ drycc ps exec python-getting-started-web-69b7d4bfdc-kl4xf -it -- bash
 ```
 
 In your shell, list the root directory:
@@ -291,14 +291,14 @@ ls /
 Running individual commands in a container
 
 ```
-$ drycc ps:exec python-getting-started-web-69b7d4bfdc-kl4xf -- date
+$ drycc ps exec python-getting-started-web-69b7d4bfdc-kl4xf -- date
 ```
 
 Use "drycc ps --help" for a list of global command-line (applies to all commands).
 
 ## Restarting an Application Processes
 
-If you need to restart an application process, you may use `drycc pts:restart`. Behind the scenes, Drycc Workflow instructs
+If you need to restart an application process, you may use `drycc pts restart`. Behind the scenes, Drycc Workflow instructs
 Kubernetes to terminate the old process and launch a new one in its place.
 
 ```
@@ -309,7 +309,7 @@ scenic-icehouse-web-3291896318-rsekj               v2         up          web   
 scenic-icehouse-web-3291896318-vokg7               v2         up          web        1/1      0            2023-12-08T02:25:00UTC
 scenic-icehouse-background-3291896318-yf8kh        v2         up          web        1/1      0            2023-12-08T02:25:00UTC
 
-$ drycc pts:restart scenic-icehouse-background
+$ drycc pts restart scenic-icehouse-background
 NAME                                               RELEASE    STATE       PTYPE      READY    RESTARTS    STARTED
 scenic-icehouse-web-3291896318-vokg7               v2         up          web        1/1      0           2023-12-08T02:25:00UTC
 scenic-icehouse-web-3291896318-rsekj               v2         up          web        1/1      0           2023-12-08T02:50:21UTC
@@ -338,14 +338,14 @@ background    v2         1/1      1             1            false      2023-12-
 Clean up non-existent ptypes, it is usually executed automatically when autodeploy is set to `true`.
 
 ```
-$ drycc pts:clean background
+$ drycc pts clean background
 ```
 
 
 ## Get deployment info of the application process type
 
 ```
-$ drycc pts:describe web
+$ drycc pts describe web
 Container:    python-getting-started-web                   
 Image:        drycc/python-getting-started:latest          
 Command:      

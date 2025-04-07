@@ -44,14 +44,14 @@ By publishing the **public** half of your SSH key to Drycc Workflow the componen
 will be able to authenticate the user and ensure that they have access to the destination application.
 
 ```
-$ drycc keys:add ~/.ssh/id_drycc.pub
+$ drycc keys add ~/.ssh/id_drycc.pub
 Uploading id_drycc.pub to drycc... done
 ```
 
 You can always view the keys associated with your user as well:
 
 ```
-$ drycc keys:list
+$ drycc keys list
 ID                              OWNER    KEY                           
 admin@plinth-23437.local        admin    ssh-rsa abc AAAAB3Nz...3437.local
 admin@subgenius.local           admin    ssh-rsa 123 AAAAB3Nz...nius.local
@@ -59,6 +59,6 @@ admin@subgenius.local           admin    ssh-rsa 123 AAAAB3Nz...nius.local
 
 Remove keys by their name:
 ```
-$ drycc keys:remove admin@plinth-23437.local
+$ drycc keys remove admin@plinth-23437.local
 Removing admin@plinth-23437.local SSH Key... don
 ```

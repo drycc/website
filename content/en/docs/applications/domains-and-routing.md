@@ -7,7 +7,7 @@ weight: 13
 
 You can use `drycc domains` to add or remove custom domains to the application:
 
-    $ drycc domains:add hello.bacongobbler.com --ptype=web
+    $ drycc domains add hello.bacongobbler.com --ptype=web
     Adding hello.bacongobbler.com to finest-woodshed... done
 
 Once that's done, you can go into a DNS registrar and set up a CNAME from the new
@@ -28,13 +28,13 @@ appname to the old one:
 
 To add or remove the application from the routing mesh, use `drycc routing`:
 
-    $ drycc routing:disable
+    $ drycc routing disable
     Disabling routing for finest-woodshed... done
 
 This will make the application unreachable through the [Router][], but the application is still
 reachable internally through its [Kubernetes Service][service]. To re-enable routing:
 
-    $ drycc routing:enable
+    $ drycc routing enable
     Enabling routing for finest-woodshed... done
 
 

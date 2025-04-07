@@ -20,7 +20,7 @@ If you set a requests/limits that is out of range for your cluster, Kubernetes w
 processes into the cluster!
 
 ```
-$ drycc limits:plans
+$ drycc limits plans
 
 ID                    SPEC    CPU              VCPUS    MEMORY     FEATURES                      
 std1.large.c1m1       std1    Universal CPU    1        1 GiB      Integrated GPU shared    
@@ -32,7 +32,7 @@ std1.large.c2m4       std1    Universal CPU    2        4 GiB      Integrated GP
 std1.large.c2m8       std1    Universal CPU    2        8 GiB      Integrated GPU shared    
 std1.large.c2m16      std1    Universal CPU    2        16 GiB     Integrated GPU shared    
 
-$ drycc limits:set web=std1.large.c1m1
+$ drycc limits set web=std1.large.c1m1
 Applying limits... done
 ```
 

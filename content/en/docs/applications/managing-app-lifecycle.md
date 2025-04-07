@@ -91,14 +91,14 @@ Use `drycc run` to execute commands on the deployed application.
 ## Share an Application
 
 
-Use `drycc perms:add` to allow another Drycc user to collaborate on your application.
+Use `drycc perms add` to allow another Drycc user to collaborate on your application.
 
 ```
-$ drycc perms:add otheruser view,change,delete
+$ drycc perms add otheruser view,change,delete
 Adding user otheruser as a collaborator for view,change,delete peachy-waxwork... done
 ```
 
-Use `drycc perms` to see who an application is currently shared with, and `drycc perms:remove` to remove a collaborator.
+Use `drycc perms` to see who an application is currently shared with, and `drycc perms remove` to remove a collaborator.
 
 !!! note
     Collaborators can do anything with an application that its owner can do, except delete the application.

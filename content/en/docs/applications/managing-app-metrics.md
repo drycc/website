@@ -10,7 +10,7 @@ weight: 6
 Create an authentication token using the drycc client.
 
 ```
-# drycc tokens:add prometheus --password admin --username admin
+# drycc tokens add prometheus --password admin --username admin
  !    WARNING: Make sure to copy your token now.
  !    You won't be able to see it again, please confirm whether to continue.
  !    To proceed, type "yes" !

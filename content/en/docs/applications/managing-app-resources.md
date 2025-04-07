@@ -13,26 +13,40 @@ This command depend on [service-catalog](https://service-catalog.drycc.cc).
 Use `drycc resources` to create and bind a resource for a deployed application.
 
     $ drycc help resources
+    Manage resources for your applications
 
-    Valid commands for resources:
+    Usage:
+    drycc resources [flags]
+    drycc resources [command]
 
-    resources:services         list all available resource services
-    resources:plans            list all available plans for an resource services
-    resources:create           create a resource for the application
-    resources:list             list resources in the application
-    resources:describe         get a resource detail info in the application
-    resources:update           update a resource from the application
-    resources:destroy          delete a resource from the applicationa
-    resources:bind             bind a resource to servicebroker
-    resources:unbind           unbind a resource from servicebroker
+    Available Commands:
+    services    List all available resource services
+    plans       List all available plans for a resource service
+    create      Create a resource for the application
+    list        List resources in the application
+    describe    Get a resource's detail in the application
+    update      Update a resource from the application
+    bind        Bind a resource for an application
+    unbind      unbind a resources for an application
+    destroy     Delete a resource from the application
 
-    Use 'drycc help [command]' to learn more.
+    Flags:
+    -a, --app string   The uniquely identifiable name for the application
+    -l, --limit int    The maximum number of results to display
+
+    Global Flags:
+    -c, --config string   Path to configuration file. (default "~/.drycc/client.json")
+    -h, --help            Display help information
+    -v, --version         Display client version
+
+    Use "drycc resources [command] --help" for more information about a command.
+
 
 ## List all available resource services
 
-You can list available resource services with one `drycc resources:services` command
+You can list available resource services with one `drycc resources services` command
 
-    $ drycc resources:services
+    $ drycc resources services
     ID                                      NAME                  UPDATEABLE 
     15032a52-33c2-4b40-97aa-ceb972f51509    airflow               true          
     b7cb26a4-b258-445c-860b-a664239a67f8    cloudbeaver           true          
@@ -55,9 +69,9 @@ You can list available resource services with one `drycc resources:services` com
 
 ## List all available plans for an resource services
 
-You can list all available plans for an resource services with one `drycc resources:plans` command
+You can list all available plans for an resource services with one `drycc resources plans` command
 
-    $ drycc resources:plans redis
+    $ drycc resources plans redis
     ID                                      NAME              DESCRIPTION                                                       
     8d659058-a3b4-4058-b039-cc03a31b9442    standard-128      Redis standard-128 plan which limit resources memory size 128Mi.     
     36e3dbec-fc51-4f6b-9baa-e31e316858be    standard-256      Redis standard-256 plan which limit resources memory size 256Mi.     
@@ -72,30 +86,30 @@ You can list all available plans for an resource services with one `drycc resour
 
 ## Create resource in application
 
-You can create a resource with one `drycc resources:create` command
+You can create a resource with one `drycc resources create` command
 
-    $ drycc resources:create redis:1000 redis
+    $ drycc resources create redis redis standard-128
     Creating redis to scenic-icehouse... done
 
 After resources are created, you can list the resources in this application.
 
-    $ drycc resources:list
+    $ drycc resources list
     UUID                                    NAME     OWNER    PLAN                  UPDATED              
     07220e9e-d54d-4d74-a88c-f464aa374386    redis    admin    redis:standard-128    2024-05-08T01:01:00Z   
 
 ## Bind resources
 
 The resource which is named redis is created, you can bind the redis to the application,
-use the command of `drycc resources:bind redis`.
+use the command of `drycc resources bind redis`.
 
-    $ drycc resources:bind redis
+    $ drycc resources bind redis
     Binding resource... done
 
 ## Describe resources
 
-And use `drycc resources:describe` show the binding detail. If the binding is successful, this command will show the information of connect to the resource.
+And use `drycc resources describe` show the binding detail. If the binding is successful, this command will show the information of connect to the resource.
 
-    $ drycc resources:describe redis
+    $ drycc resources describe redis
     === scenic-icehouse resource redis
     plan:               redis:1000
     status:             Ready
@@ -108,19 +122,19 @@ And use `drycc resources:describe` show the binding detail. If the binding is su
 
 ## Update resources
 
-You can use the `drycc resources:update` command to upgrade a new plan.
-An example of how to upgrade the plan's capacity to 100MB:
+You can use the `drycc resources update` command to upgrade a new plan.
+An example of how to upgrade the plan's capacity to 128MB:
 
-    $ drycc resources:update redis:10000 redis
+    $ drycc resources update redis redis standard-128
     Updating redis to scenic-icehouse... done
 
 ## Remove the resource
 
-If you don't need resources, use `drycc resources:unbind` to unbind the resource and then use `drycc resources:destroy` to delete the resource from the application.
+If you don't need resources, use `drycc resources unbind` to unbind the resource and then use `drycc resources destroy` to delete the resource from the application.
 Before deleting the resource, the resource must be unbinded.
 
-    $ drycc resources:unbind redis
+    $ drycc resources unbind redis
     Unbinding resource... done
 
-    $ drycc resources:destroy redis
+    $ drycc resources destroy redis
     Deleting redis from scenic-icehouse... done
