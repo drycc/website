@@ -26,7 +26,7 @@ Drycc Workflow currently supports:
 
   1. If you haven't already fetched the values file, do so with `helm inspect values drycc/workflow > values.yaml`
   1. Update registry location details by modifying the values file:
-    * Update the `registryLocation` parameter to reference the registry location you are using: `off-cluster`, `ecr`, `gcr`
+    * Update the `registry.enabled` parameter to reference the registry location you are using: `true`, `false`
     * Update the values in the section which corresponds to your registry location type.
 
 You are now ready to `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml` using your desired registry.
@@ -39,18 +39,13 @@ Here we show how the relevant parts of the fetched `values.yaml` file might look
 After following the [docs](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli) and creating a registry, e.g. `myregistry`, with its corresponding login server of `myregistry.azurecr.io`, the following values should be supplied:
 
 ```
-global:
-...
-  registryLocation: "off-cluster"
-...
-registry-token-refresher:
-...
-  registry:
-    hostname: "myregistry.azurecr.io"
-    organization: "myorg"
-    username: "myusername"
-    password: "mypassword"
-...
+builder:
+  registryHost: "myregistry.azurecr.io"
+  registryUsername: "xxxx"
+  registryPassword: "xxxx"
+  registryOrganization: "xxxx"
+registry:
+  enabled: false
 ```
 
 **Note:** The mandatory organization field (here `myorg`) will be created as an ACR repository if it does not already exist.
@@ -58,18 +53,13 @@ registry-token-refresher:
 ### Quay.io
 
 ```
-global:
-...
-  registryLocation: "off-cluster"
-...
-registry-token-refresher:
-...
-  registry:
-    hostname: "quay.io"
-    organization: "myorg"
-    username: "myusername"
-    password: "mypassword"
-...
+builder:
+  registryHost: "quay.io"
+  registryUsername: "xxxx"
+  registryPassword: "xxxx"
+  registryOrganization: "xxxx"
+registry:
+  enabled: false
 ```
 
 [registry]: ../understanding-workflow/components.md#registry

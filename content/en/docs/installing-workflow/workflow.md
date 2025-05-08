@@ -64,7 +64,6 @@ $ helm install drycc oci://registry.drycc.cc/charts/workflow \
     --set storage.imageRegistry=quay.io \
     --set grafana.imageRegistry=quay.io \
     --set registry.imageRegistry=quay.io \
-    --set registry-proxy.imageRegistry=quay.io \
     --set global.platformDomain=drycc.cc
 ```
 
