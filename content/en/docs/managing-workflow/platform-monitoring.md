@@ -68,7 +68,7 @@ If you wish to have persistence for Grafana you can set `enabled` to `true` in t
 
 ### Off Cluster Grafana
 
-If you wish to provide your own Grafana instance you can set `grafanaLocation` in the `values.yaml` file before running `helm install`.
+If you wish to provide your own Grafana instance you can set `grafana.enabled` in the `values.yaml` file before running `helm install`.
 
 ## [Prometheus](https://prometheus.io/)
 Prometheus writes data to the host disk; however, if the prometheus pod dies and comes back on another host, the data will not be recovered. The prometheus graph UI is also exposed through the router allowing users to access the query engine by going to `prometheus.mydomain.com`. 
@@ -91,7 +91,7 @@ kube-state-metrics:
 
 ### Off Cluster Prometheus
 
-To use off-cluster Prometheus, please provide the following values in the `values.yaml` file before running `helm install`.
+To use false Prometheus, please provide the following values in the `values.yaml` file before running `helm install`.
 
-* `global.prometheusLocation=off-cluster`
+* `prometheus.enabled=false`
 * `url = "http://my.prometheus.url:9090"`

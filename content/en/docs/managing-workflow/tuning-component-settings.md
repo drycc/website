@@ -39,8 +39,7 @@ There are a few ways to customize the respective component:
 
 You can set resource limits to Workflow components by modifying the values.yaml file fetched
 earlier. This file has a section for each Workflow component. To set a limit to any Workflow
-component just add `limitsCpu`, `limitsMemory` in the section and set them to the appropriate
-values.
+component just add `resources` in the section and set them to the appropriate values.
 
 Below is an example of how the builder section of `values.yaml` might look with CPU and memory
 limits set:
@@ -50,8 +49,13 @@ builder:
   imageOrg: "drycc"
   imagePullPolicy: "Always"
   imageTag: "canary"
-  limitsCpu: "100m"
-  limitsMemory: "50Mi"
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2048Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
 ```
 
 ## Customizing the Builder

@@ -525,8 +525,10 @@ builder:
 
 database:
   imageRegistry: ${DRYCC_REGISTRY}
-  limitsMemory: "512Mi"
-  limitsHugepages2Mi: "256Mi"
+  resources:
+    limits:
+      memory: 2512Mi
+      hugepages-2Mi: 256Mi
   persistence:
     enabled: true
     size: ${DATABASE_PERSISTENCE_SIZE:-5Gi}
@@ -595,9 +597,6 @@ registry:
   replicas: ${REGISTRY_REPLICAS:-1}
   imageRegistry: ${DRYCC_REGISTRY}
 
-registry-proxy:
-  imageRegistry: ${DRYCC_REGISTRY}
-
 acme:
   server: ${ACME_SERVER:-"https://acme-v02.api.letsencrypt.org/directory"}
   externalAccountBinding:
@@ -649,7 +648,7 @@ function install_helmbroker {
   echo -e "\\033[32m---> Start install helmbroker...\\033[0m"
 
   helm upgrade --install helmbroker $CHARTS_URL/helmbroker \
-    --set global.valkeyLocation="off-cluster" \
+    --set valkey.enabled=false \
     --set global.gatewayClass=${GATEWAY_CLASS} \
     --set global.clusterDomain=${CLUSTER_DOMAIN} \
     --set global.platformDomain=${PLATFORM_DOMAIN} \
