@@ -517,11 +517,13 @@ global:
   clusterDomain: ${CLUSTER_DOMAIN}
   platformDomain: ${PLATFORM_DOMAIN}
   certManagerEnabled: ${CERT_MANAGER_ENABLED}
-  gatewayClass: ${GATEWAY_CLASS}
 
 builder:
   replicas: ${BUILDER_REPLICAS:-1}
   imageRegistry: ${DRYCC_REGISTRY}
+
+gateway:
+  gatewayClass: ${GATEWAY_CLASS}
 
 database:
   imageRegistry: ${DRYCC_REGISTRY}
@@ -543,6 +545,7 @@ controller:
   webhookReplicas: ${CONTROLLER_WEBHOOK_REPLICAS:-1}
   imageRegistry: ${DRYCC_REGISTRY}
   appRuntimeClass: ${CONTROLLER_APP_RUNTIME_CLASS:-""}
+  appGatewayClass: ${CONTROLLER_APP_GATEWAY_CLASS:-$GATEWAY_CLASS}
   appStorageClass: ${CONTROLLER_APP_STORAGE_CLASS:-"longhorn"}
   filerImage: ${FILER_IMAGE}
   filerImagePullPolicy: ${FILER_IMAGE_PULL_POLICY}
@@ -577,15 +580,6 @@ grafana:
     enabled: true
     size: ${MONITOR_GRAFANA_PERSISTENCE_SIZE:-5Gi}
     storageClass: ${MONITOR_GRAFANA_PERSISTENCE_STORAGE_CLASS:-""}
-
-prometheus:
-  prometheus-server:
-    retention: ${PROMETHEUS_SERVER_RETENTION:-"15d"}
-    persistence:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: ${PROMETHEUS_SERVER_PERSISTENCE_SIZE:-10Gi}
-      storageClass: ${PROMETHEUS_SERVER_PERSISTENCE_STORAGE_CLASS:-""}
 
 passport:
   replicas: ${PASSPORT_REPLICAS:-1}
@@ -625,11 +619,32 @@ imagebuilder:
     short-name-mode="permissive"
 EOF
   fi
+  if [[ -z "${VICTORIAMETRICS_CONFIG_FILE}" ]] ; then
+    VICTORIAMETRICS_CONFIG_FILE="/tmp/drycc-storage-values.yaml"
+    cat << EOF > "${VICTORIAMETRICS_CONFIG_FILE}"
+victoriametrics:
+  enabled: true
+  vmagent:
+    replicas: 1
+  vminsert:
+    replicas: 1
+  vmselect:
+    replicas: 1
+  vmstorage:
+    replicas: 1
+    persistence:
+      enabled: true
+      size: ${VICTORIAMETRICS_PERSISTENCE_SIZE:-10Gi}
+      storageClass: ${VICTORIAMETRICS_PERSISTENCE_STORAGE_CLASS:-""}
+EOF
+    export VICTORIAMETRICS_CONFIG_FILE
+  fi
 
   helm upgrade --install drycc $CHARTS_URL/workflow \
     --namespace drycc \
     --values /tmp/drycc-values.yaml \
     --values /tmp/drycc-mirror-values.yaml \
+    --values ${VICTORIAMETRICS_CONFIG_FILE} \
     --create-namespace --wait --timeout 30m0s $options
   echo -e "\\033[32m---> Workflow install completed!\\033[0m"
 }
@@ -649,7 +664,7 @@ function install_helmbroker {
 
   helm upgrade --install helmbroker $CHARTS_URL/helmbroker \
     --set valkey.enabled=false \
-    --set global.gatewayClass=${GATEWAY_CLASS} \
+    --set gateway.gatewayClass=${GATEWAY_CLASS} \
     --set global.clusterDomain=${CLUSTER_DOMAIN} \
     --set global.platformDomain=${PLATFORM_DOMAIN} \
     --set global.certManagerEnabled=${CERT_MANAGER_ENABLED} \

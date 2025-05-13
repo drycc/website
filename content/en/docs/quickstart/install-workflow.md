@@ -169,6 +169,7 @@ CONTROLLER_API_REPLICAS                         | Number of controller api repli
 CONTROLLER_CELERY_REPLICAS                      | Number of controller celery replicas to deploy
 CONTROLLER_WEBHOOK_REPLICAS                     | Number of controller webhook replicas to deploy
 CONTROLLER_APP_RUNTIME_CLASS                    | RuntimeClass is a feature for selecting the container runtime configuration.
+CONTROLLER_APP_GATEWAY_CLASS                    | GatewayClass allocated by `drycc gateways`; default GatewayClass is used by default
 CONTROLLER_APP_STORAGE_CLASS                    | StorageClass allocated by `drycc volumes`; default storageClass is used by default
 VALKEY_PERSISTENCE_SIZE                         | The size of the persistence space allocated to `valkey`, which is `5Gi` by default
 VALKEY_PERSISTENCE_STORAGE_CLASS                | StorangeClass of `valkey`; default storangeclass is used by default
@@ -188,9 +189,9 @@ HELMBROKER_REPLICAS                             | Number of helmbroker api repli
 HELMBROKER_CELERY_REPLICAS                      | Number of helmbroker celery replicas to deploy
 HELMBROKER_PERSISTENCE_SIZE                     | The size of the persistence space allocated to `helmbroker`, which is `5Gi` by default
 HELMBROKER_PERSISTENCE_STORAGE_CLASS            | StorangeClass of `helmbroker`; default storangeclass is used by default
-PROMETHEUS_SERVER_RETENTION                     | Prometheus data retention period (default if not specified is 15 days)
-PROMETHEUS_SERVER_PERSISTENCE_SIZE              | The size of the persistence space allocated to `prometheus-server`, which is `10Gi` by default
-PROMETHEUS_SERVER_PERSISTENCE_STORAGE_CLASS     | StorangeClass of `prometheus-server`; default storangeclass is used by default
+VICTORIAMETRICS_CONFIG_FILE                     | The path of the victoriametrics configuration file, turn on this, the two below won't work.
+VICTORIAMETRICS_PERSISTENCE_SIZE                | The size of the persistence space allocated to `victoriametrics` vmstorage, which is `10Gi` by default
+VICTORIAMETRICS_PERSISTENCE_STORAGE_CLASS       | StorangeClass of `victoriametrics` vmstorage; default storangeclass is used by default
 K3S_DATA_DIR                                    | The config of k3s data dir; If not set, the default path is used
 ACME_SERVER                                     | ACME Server url, default use letsencrypt
 ACME_EAB_KEY_ID                                 | The key ID of which your external account binding is indexed by the external account
