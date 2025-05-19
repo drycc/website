@@ -12,7 +12,7 @@ We now include a monitoring stack for introspection on a running Kubernetes clus
 
 * [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics), kube-state-metrics (KSM) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.
 * [Node Exporter](http://github.com/prometheus/node_exporter), Prometheus exporter for hardware and OS metrics exposed by *NIX kernels.
-* [Prometheus](https://prometheus.io/), a [Cloud Native Computing Foundation](https://cncf.io/) project, is a systems and service monitoring system.
+* [Victoriametrics](https://victoriametrics.com/), a [Cloud Native Computing Foundation](https://cncf.io/) project, is a systems and service monitoring system.
 * [Grafana](http://grafana.org/), Graphing tool for time series data
 
 ## Architecture Diagram
@@ -20,23 +20,23 @@ We now include a monitoring stack for introspection on a running Kubernetes clus
 ```
 ┌────────────────┐                                                        
 │ HOST           │                                                        
-│  node-exporter │◀──┐                       ┌──────────────────┐         
-└────────────────┘   │                       │kube-state-metrics│         
-                     │                       └──────────────────┘         
-┌────────────────┐   │                               ▲                    
-│ HOST           │   │    ┌────────────┐             │                    
-│  node-exporter │◀──┼────│ Prometheus │─────────────┘                    
-└────────────────┘   │    └────────────┘                                  
-                     │          ▲                                         
-┌───────────────┐    │          │                                         
-│ HOST          │    │          ▼                                         
-│  node-exporter│◀───┘    ┌──────────┐                                    
-└───────────────┘         │ Grafana  │                                    
-                          └──────────┘                                    
+│  node-exporter │◀──┐                          ┌──────────────────┐         
+└────────────────┘   │                          │kube-state-metrics│         
+                     │                          └──────────────────┘         
+┌────────────────┐   │                                    ▲                    
+│ HOST           │   │    ┌─────────────────┐             │                    
+│  node-exporter │◀──┼────│ victoriametrics │─────────────┘                    
+└────────────────┘   │    └─────────────────┘                                  
+                     │             ▲                                         
+┌───────────────┐    │             │                                         
+│ HOST          │    │             ▼                                         
+│  node-exporter│◀───┘       ┌──────────┐                                    
+└───────────────┘            │ Grafana  │                                    
+                             └──────────┘                                    
 ```
 
 ## [Grafana](https://grafana.com/)
-Grafana allows users to create custom dashboards that visualize the data captured to the running Prometheus component. By default Grafana is exposed using a [service annotation](https://github.com/drycc/router#how-it-works) through the router at the following URL: `http://grafana.mydomain.com`. The default login is `admin/admin`. If you are interested in changing these values please see [Tuning Component Settings][].
+Grafana allows users to create custom dashboards that visualize the data captured to the running VictoriaMetrics component. By default Grafana is exposed using a [service annotation](https://github.com/drycc/router#how-it-works) through the router at the following URL: `http://grafana.mydomain.com`. The default login is `admin/admin`. If you are interested in changing these values please see [Tuning Component Settings][].
 
 Grafana will preload several dashboards to help operators get started with monitoring Kubernetes and Drycc Workflow.
 These dashboards are meant as starting points and don't include every item that might be desirable to monitor in a
@@ -70,28 +70,37 @@ If you wish to have persistence for Grafana you can set `enabled` to `true` in t
 
 If you wish to provide your own Grafana instance you can set `grafana.enabled` in the `values.yaml` file before running `helm install`.
 
-## [Prometheus](https://prometheus.io/)
-Prometheus writes data to the host disk; however, if the prometheus pod dies and comes back on another host, the data will not be recovered. The prometheus graph UI is also exposed through the router allowing users to access the query engine by going to `prometheus.mydomain.com`. 
+## [VictoriaMetrics](https://victoriametrics.com/)
+VictoriaMetrics is a fast and scalable open source time series database and monitoring solution that lets users build a monitoring platform without scalability issues and minimal operational burden, it is fully compatible with the prometheus format.
 
 ### On Cluster Persistence
 You can set `node-exporter` and `kube-state-metrics` to `true` or `false` in the `values.yaml`.
-If you wish to have persistence for Prometheus you can set `enabled` to `true` in the `values.yaml` file before running `helm install`.
+-If you wish to have persistence for VictoriaMetrics you can set `enabled` to `true` in the `values.yaml` file before running `helm install`.
 
 ```
-prometheus:
-  prometheus-server:
+victoriametrics:
+  vmstorage:
+    replicas: 3
+    extraArgs:
+    - --retentionPeriod=30d
+    temporary:
+      enabled: true
+      size: 5Gi
+      storageClass: "toplvm-ssd"
     persistence:
-      enabled: true # Set to true to enable persistence
-      size: 10Gi # PVC size
-node-exporter:
-  enabled: true
-kube-state-metrics:
-  enabled: true
+      enabled: true
+      size: 10Gi
+      storageClass: "toplvm-hdd"
+  node-exporter:
+    enabled: true
+  kube-state-metrics:
+    enabled: true
 ```
 
-### Off Cluster Prometheus
+### Off Cluster VictoriaMetrics
 
-To use false Prometheus, please provide the following values in the `values.yaml` file before running `helm install`.
+To use false VictoriaMetrics, please provide the following values in the `values.yaml` file before running `helm install`.
 
-* `prometheus.enabled=false`
-* `url = "http://my.prometheus.url:9090"`
+* `victoriametrics.enabled=false`
+* `grafana.prometheusUrl="http://my.prometheus.url:9090"`
+* `controller.prometheusUrl="http://my.prometheus.url:9090"`

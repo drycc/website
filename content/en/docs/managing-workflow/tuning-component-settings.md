@@ -156,11 +156,9 @@ allow_sign_up | "true" | Allows users to sign up for an account.
 
 For a list of other options you can set by using environment variables please see the [configuration file](https://github.com/drycc/monitor/blob/main/grafana/rootfs/usr/share/grafana/grafana.ini.tpl) in Github.
 
-### [Telegraf](https://docs.influxdata.com/telegraf)
-For a list of configuration values that can be set by using environment variables please see the following [configuration file](https://github.com/drycc/monitor/blob/main/telegraf/rootfs/config.toml.tpl).
 
-### [Prometheus](https://prometheus.io)
-You can find a list of values that can be set using environment variables [here](https://github.com/drycc/prometheus).
+### [Victoriametrics](https://victoriametrics.com/)
+You can find a list of values that can be set using environment variables [here](https://github.com/drycc/victoriametrics).
 
 ## Customizing the Registry
 

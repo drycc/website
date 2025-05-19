@@ -109,28 +109,13 @@ Application name. Logger does not persist logs to disk, instead maintaining an
 in-memory ring buffer. For more information on logger see the [project
 documentation][logger-documentation].
 
-## Monitor
+## Victoriametrics
 
-**Project Location:** [drycc/monitor](https://github.com/drycc/monitor)
+**Project Location:** [drycc/victoriametrics](https://github.com/drycc/victoriametrics)
 
-The monitoring subsystem consists of two components: Telegraf and Grafana.
-
-Telegraf is the is the metrics collection agent that runs using the daemon set API. It runs on
-every worker node in the cluster, fetches information about the pods currently running and ships it
-to Prometheus.
-
-Grafana is a standalone graphing application. It natively supports Prometheus as a datasource and
-provides a robust engine for creating dashboards on top of timeseries data. Workflow provides a few
-dashboards out of the box for monitoring Drycc Workflow and Kubernetes. The dashboards can be used
-as a starting point for creating more custom dashboards to suit a user's needs.
-
-## Prometheus
-
-**Project Location:** [drycc/prometheus](https://github.com/drycc/prometheus)
-
-Prometheus is a system monitoring and alerting system. It was opensourced by SoundCloud in 2012 and is
+Victoriametrics is a system monitoring and alerting system. It was opensourced by SoundCloud in 2012 and is
 the second project both to join and to graduate within Cloud Native Computing Foundation after Kubernetes.
-Prometheus stores all metrics data as time series, i.e metrics information is stored along with the
+Victoriametrics stores all metrics data as time series, i.e metrics information is stored along with the
 timestamp at which it was recorded, optional key-value pairs called as labels can also be stored along
 with metrics.
 
@@ -142,11 +127,11 @@ Helm Broker is a Service Broker that exposes Helm charts as Service Classes in S
 To do so, Helm Broker uses the concept of addons. An addon is an abstraction layer over a Helm chart
 which provides all information required to convert the chart into a Service Class.
 
-## Prometheus
+## Victoriametrics
 
-**Project Location:** [drycc/prometheus](https://github.com/drycc/prometheus)
+**Project Location:** [drycc/victoriametrics](https://github.com/drycc/victoriametrics)
 
-Prometheus is an open-source systemsmonitoring and alerting toolkit originally built atSoundCloud.
+Victoriametrics is an open-source systemsmonitoring and alerting toolkit originally built atSoundCloud.
 
 ## See Also
 
