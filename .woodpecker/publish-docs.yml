@@ -21,8 +21,6 @@ steps:
   when:
     event:
     - tag
-    - push
-    - cron
 
 - name: publish-docs
   image: bash
@@ -47,5 +45,3 @@ steps:
   when:
     event:
     - tag
-    - push
-    - cron
