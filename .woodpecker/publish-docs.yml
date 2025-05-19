@@ -9,6 +9,9 @@ steps:
   - make build
   - cd public && git init
   - |
+    for download_url in $(curl -SsL $(curl -SsL https://api.github.com/repos/drycc/workflow/releases|jq -r '.[0].assets_url') | jq -r '.[].browser_download_url'); do
+      curl -SsLO $download_url 
+    done
     for download_url in $(curl -SsL $(curl -SsL https://api.github.com/repos/drycc/workflow-cli/releases|jq -r '.[0].assets_url') | jq -r '.[].browser_download_url'); do
       echo $(echo $download_url | sed s#https://github.com#https://drycc-mirrors.drycc.cc#g) >> workflow-cli.txt
     done
