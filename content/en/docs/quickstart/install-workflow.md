@@ -152,50 +152,52 @@ $ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_k3s_agent
 
 When using this method to install drycc, the following environment variables can be used to configure the installation:
 
-ENVIRONMENT VARIABLE                            | DESCRIPTION
-------------------------------------------------|---------------------------------------------------------------------------------------------
-PLATFORM_DOMAIN                                 | Required item, specify drycc's domain name
-DRYCC_ADMIN_USERNAME                            | Required item, specify drycc's admin username
-DRYCC_ADMIN_PASSWORD                            | Required item, specify drycc's admin password
-CERT_MANAGER_ENABLED                            | Whether to use automatic certificate. It is `false` by default
-CHANNEL                                         | By default, `stable` channel will be installed. You can also specify `testing`
-KUBERNETES_SERVICE_HOST                         | Set with the HOST of the loadbalancer that was in front of kube-apiserver
-KUBERNETES_SERVICE_PORT                         | Set with the PORT of the loadbalancer that was in front of kube-apiserver
-METALLB_CONFIG_FILE                             | The metallb config file path, layer 2 network is used by default
-LONGHORN_CONFIG_FILE                            | The Longhorn config file path
-INSTALL_DRYCC_MIRROR                            | Specify the accelerated mirror location. Currently, only `cn` is supported
-BUILDER_REPLICAS                                | Number of builder replicas to deploy
-CONTROLLER_API_REPLICAS                         | Number of controller api replicas to deploy
-CONTROLLER_CELERY_REPLICAS                      | Number of controller celery replicas to deploy
-CONTROLLER_WEBHOOK_REPLICAS                     | Number of controller webhook replicas to deploy
-CONTROLLER_APP_RUNTIME_CLASS                    | RuntimeClass is a feature for selecting the container runtime configuration.
-CONTROLLER_APP_GATEWAY_CLASS                    | GatewayClass allocated by `drycc gateways`; default GatewayClass is used by default
-CONTROLLER_APP_STORAGE_CLASS                    | StorageClass allocated by `drycc volumes`; default storageClass is used by default
-VALKEY_PERSISTENCE_SIZE                         | The size of the persistence space allocated to `valkey`, which is `5Gi` by default
-VALKEY_PERSISTENCE_STORAGE_CLASS                | StorangeClass of `valkey`; default storangeclass is used by default
-STORAGE_PERSISTENCE_SIZE                        | The size of the persistence space allocated to `storage`, which is `5Gi` by default
-STORAGE_PERSISTENCE_STORAGE_CLASS               | StorangeClass of `storage`; default storangeclass is used by default
-MONITOR_GRAFANA_PERSISTENCE_SIZE                | The size of the persistence space allocated to `monitor.grafana`, which is `5Gi` by default
-MONITOR_GRAFANA_PERSISTENCE_STORAGE_CLASS       | StorangeClass of `monitor` grafana; default storangeclass is used by default
-LOGGER_REPLICAS                                 | Number of logger replicas to deploy
-DATABASE_PERSISTENCE_SIZE                       | The size of the persistence space allocated to `database`, which is `5Gi` by default
-DATABASE_PERSISTENCE_STORAGE_CLASS              | StorangeClass of `database`; default storangeclass is used by default
-TIMESERIES_REPLICAS                             | Number of timeseries replicas to deploy
-TIMESERIES_PERSISTENCE_SIZE                     | The size of the persistence space allocated to `timeseries`, which is `5Gi` by default
-TIMESERIES_PERSISTENCE_STORAGE_CLASS            | StorangeClass of `timeseries`; default storangeclass is used by default
-PASSPORT_REPLICAS                               | Number of passport replicas to deploy
-REGISTRY_REPLICAS                               | Number of registry replicas to deploy
-HELMBROKER_REPLICAS                             | Number of helmbroker api replicas to deploy
-HELMBROKER_CELERY_REPLICAS                      | Number of helmbroker celery replicas to deploy
-HELMBROKER_PERSISTENCE_SIZE                     | The size of the persistence space allocated to `helmbroker`, which is `5Gi` by default
-HELMBROKER_PERSISTENCE_STORAGE_CLASS            | StorangeClass of `helmbroker`; default storangeclass is used by default
-VICTORIAMETRICS_CONFIG_FILE                     | The path of the victoriametrics configuration file, turn on this, the two below won't work.
-VICTORIAMETRICS_PERSISTENCE_SIZE                | The size of the persistence space allocated to `victoriametrics` vmstorage, which is `10Gi` by default
-VICTORIAMETRICS_PERSISTENCE_STORAGE_CLASS       | StorangeClass of `victoriametrics` vmstorage; default storangeclass is used by default
-K3S_DATA_DIR                                    | The config of k3s data dir; If not set, the default path is used
-ACME_SERVER                                     | ACME Server url, default use letsencrypt
-ACME_EAB_KEY_ID                                 | The key ID of which your external account binding is indexed by the external account
-ACME_EAB_KEY_SECRET                             | The key Secret of which your external account symmetric MAC key
+ENVIRONMENT VARIABLE                                      | DESCRIPTION
+----------------------------------------------------------|---------------------------------------------------------------------------------------------
+PLATFORM_DOMAIN                                           | Required item, specify drycc's domain name
+DRYCC_ADMIN_USERNAME                                      | Required item, specify drycc's admin username
+DRYCC_ADMIN_PASSWORD                                      | Required item, specify drycc's admin password
+CERT_MANAGER_ENABLED                                      | Whether to use automatic certificate. It is `false` by default
+CHANNEL                                                   | By default, `stable` channel will be installed. You can also specify `testing`
+KUBERNETES_SERVICE_HOST                                   | Set with the HOST of the loadbalancer that was in front of kube-apiserver
+KUBERNETES_SERVICE_PORT                                   | Set with the PORT of the loadbalancer that was in front of kube-apiserver
+METALLB_CONFIG_FILE                                       | The metallb config file path, layer 2 network is used by default
+LONGHORN_CONFIG_FILE                                      | The Longhorn config file path
+INSTALL_DRYCC_MIRROR                                      | Specify the accelerated mirror location. Currently, only `cn` is supported
+BUILDER_REPLICAS                                          | Number of builder replicas to deploy
+CONTROLLER_API_REPLICAS                                   | Number of controller api replicas to deploy
+CONTROLLER_CELERY_REPLICAS                                | Number of controller celery replicas to deploy
+CONTROLLER_WEBHOOK_REPLICAS                               | Number of controller webhook replicas to deploy
+CONTROLLER_APP_RUNTIME_CLASS                              | RuntimeClass is a feature for selecting the container runtime configuration.
+CONTROLLER_APP_GATEWAY_CLASS                              | GatewayClass allocated by `drycc gateways`; default GatewayClass is used by default
+CONTROLLER_APP_STORAGE_CLASS                              | StorageClass allocated by `drycc volumes`; default storageClass is used by default
+VALKEY_PERSISTENCE_SIZE                                   | The size of the persistence space allocated to `valkey`, which is `5Gi` by default
+VALKEY_PERSISTENCE_STORAGE_CLASS                          | StorangeClass of `valkey`; default storangeclass is used by default
+STORAGE_PERSISTENCE_SIZE                                  | The size of the persistence space allocated to `storage`, which is `5Gi` by default
+STORAGE_PERSISTENCE_STORAGE_CLASS                         | StorangeClass of `storage`; default storangeclass is used by default
+MONITOR_GRAFANA_PERSISTENCE_SIZE                          | The size of the persistence space allocated to `monitor.grafana`, which is `5Gi` by default
+MONITOR_GRAFANA_PERSISTENCE_STORAGE_CLASS                 | StorangeClass of `monitor` grafana; default storangeclass is used by default
+LOGGER_REPLICAS                                           | Number of logger replicas to deploy
+DATABASE_PERSISTENCE_SIZE                                 | The size of the persistence space allocated to `database`, which is `5Gi` by default
+DATABASE_PERSISTENCE_STORAGE_CLASS                        | StorangeClass of `database`; default storangeclass is used by default
+TIMESERIES_REPLICAS                                       | Number of timeseries replicas to deploy
+TIMESERIES_PERSISTENCE_SIZE                               | The size of the persistence space allocated to `timeseries`, which is `5Gi` by default
+TIMESERIES_PERSISTENCE_STORAGE_CLASS                      | StorangeClass of `timeseries`; default storangeclass is used by default
+PASSPORT_REPLICAS                                         | Number of passport replicas to deploy
+REGISTRY_REPLICAS                                         | Number of registry replicas to deploy
+HELMBROKER_REPLICAS                                       | Number of helmbroker api replicas to deploy
+HELMBROKER_CELERY_REPLICAS                                | Number of helmbroker celery replicas to deploy
+HELMBROKER_PERSISTENCE_SIZE                               | The size of the persistence space allocated to `helmbroker`, which is `5Gi` by default
+HELMBROKER_PERSISTENCE_STORAGE_CLASS                      | StorangeClass of `helmbroker`; default storangeclass is used by default
+VICTORIAMETRICS_CONFIG_FILE                               | The path of the victoriametrics configuration file, turn on this, the two below won't work.
+VICTORIAMETRICS_VMAGENT_PERSISTENCE_SIZE                  | The size of the persistence space allocated to `victoriametrics` vmagent, which is `10Gi` by default
+VICTORIAMETRICS_VMAGENT_PERSISTENCE_STORAGE_CLASS         | StorangeClass of `victoriametrics` vmagent; default storangeclass is used by default
+VICTORIAMETRICS_VMSTORAGE_PERSISTENCE_SIZE                | The size of the persistence space allocated to `victoriametrics` vmstorage, which is `10Gi` by default
+VICTORIAMETRICS_VMSTORAGE_PERSISTENCE_STORAGE_CLASS       | StorangeClass of `victoriametrics` vmstorage; default storangeclass is used by default
+K3S_DATA_DIR                                              | The config of k3s data dir; If not set, the default path is used
+ACME_SERVER                                               | ACME Server url, default use letsencrypt
+ACME_EAB_KEY_ID                                           | The key ID of which your external account binding is indexed by the external account
+ACME_EAB_KEY_SECRET                                       | The key Secret of which your external account symmetric MAC key
 
 Since the installation script will install k3s, other environment variables can refer to k3s installation [environment variables](https://rancher.com/docs/k3s/latest/en/installation/install-options/).
 
