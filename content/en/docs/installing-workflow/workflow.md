@@ -60,7 +60,6 @@ $ helm install drycc oci://registry.drycc.cc/charts/workflow \
     --set database.imageRegistry=quay.io \
     --set fluentbit.imageRegistry=quay.io \
     --set valkey.imageRegistry=quay.io \
-    --set logger.imageRegistry=quay.io \
     --set storage.imageRegistry=quay.io \
     --set grafana.imageRegistry=quay.io \
     --set registry.imageRegistry=quay.io \
@@ -93,8 +92,7 @@ drycc-builder-574483744-l15zj             1/1       Running   0          4m
 drycc-controller-3953262871-pncgq         1/1       Running   2          4m
 drycc-controller-celery-cmxxn             3/3       Running   0          4m
 drycc-database-83844344-47ld6             1/1       Running   0          4m
-drycc-logger-176328999-wjckx              1/1       Running   4          4m
-drycc-logger-fluentbit-zxnqb              1/1       Running   0          4m
+drycc-fluentbit-zxnqb                     1/1       Running   0          4m
 drycc-valkey-304849759-1f35p              1/1       Running   0          4m
 drycc-storage-676004970-nxqgt             1/1       Running   0          4m
 drycc-monitor-grafana-432627134-lnl2h     1/1       Running   0          4m

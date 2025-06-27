@@ -61,7 +61,6 @@ RBAC support was announced in Kubernetes-1.5 and is enabled by default if:
 [customizing controller]: tuning-component-settings.md#customizing-the-controller
 [customizing monitor]: tuning-component-settings.md#customizing-the-monitor
 [database]: ../understanding-workflow/components.md#database
-[logger]: ../understanding-workflow/components.md#logger
 [storage]: ../understanding-workflow/components.md#storage
 [platform ssl]: platform-ssl.md
 [registry]: ../understanding-workflow/components.md#registry

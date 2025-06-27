@@ -24,11 +24,9 @@ Workflow provides a clean and simple developer experience.
 Drycc Workflow provides additional functionality to your Kubernetes cluster, including:
 
 * [Source to Image Builder][builder] which compiles your Application code via Buildpacks or Dockerfiles
-* [Cross-Pod Log Aggregation][logger] which gathers logs from all of your Application processes
 * [Simple REST API][controller] which powers the CLI and any external integrations
 * Application release and rollback
 * Authentication and Authorization to Application resources
-* [HTTP/HTTPS edge routing][router] for your Applications
 
 ## Kubernetes-Native
 
@@ -69,5 +67,3 @@ configurations as well as multi-server production clusters.
 [components]: components.md
 [controller]: components.md#controller
 [helm]: https://github.com/kubernetes/helm
-[logger]: components.md#logger
-[router]: components.md#router

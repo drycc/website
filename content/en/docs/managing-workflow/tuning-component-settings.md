@@ -134,14 +134,6 @@ config.outputs    | The outputs section specify a destination that certain recor
 
 For more information about the various variables that can be set please see the [fluentbit](https://github.com/drycc/fluentbit).
 
-## Customizing the Logger
-
-The following environment variables are tunable for the [Logger][] component:
-
-Setting           | Description
------------------ | ---------------------------------
-STORAGE_ADAPTER   | How to store logs that are sent to the logger. Legal values are "file", "memory", and "valkey". (default: "valkey")
-NUMBER_OF_LINES   | How many lines to store in the ring buffer (default: 1000)
 
 ## Customizing the Monitor
 
@@ -199,7 +191,6 @@ API_VERSION       | The version number Workflow Manager sends to the versions AP
 [downward-api]: http://kubernetes.io/docs/user-guide/downward-api/
 [gunicorn]: http://gunicorn.org/
 [kubernetes-deployment-revision]: http://kubernetes.io/docs/user-guide/deployments/#revision-history-limit
-[logger]: ../understanding-workflow/components.md#logger-fluentbit-logger
 [monitor]: ../understanding-workflow/components.md#monitor
 [pull-policy]: http://kubernetes.io/docs/user-guide/images/
 [registry]: ../understanding-workflow/components.md#registry

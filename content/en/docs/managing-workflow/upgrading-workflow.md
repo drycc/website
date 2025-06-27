@@ -52,11 +52,10 @@ drycc-builder-2448122224-3cibz            1/1       Running   0          5m
 drycc-controller-1410285775-ipc34         1/1       Running   3          5m
 drycc-controller-celery-694f75749b-cmxxn  3/3       Running   0          5m
 drycc-database-e7c5z                      1/1       Running   0          5m
-drycc-logger-cgjup                        1/1       Running   3          5m
-drycc-logger-fluentbit-45h7j              1/1       Running   0          5m
-drycc-logger-fluentbit-4z7lw              1/1       Running   0          5m
-drycc-logger-fluentbit-k2wsw              1/1       Running   0          5m
-drycc-logger-fluentbit-skdw4              1/1       Running   0          5m
+drycc-fluentbit-45h7j                     1/1       Running   0          5m
+drycc-fluentbit-4z7lw                     1/1       Running   0          5m
+drycc-fluentbit-k2wsw                     1/1       Running   0          5m
+drycc-fluentbit-skdw4                     1/1       Running   0          5m
 drycc-valkey-8nazu                        1/1       Running   0          5m
 drycc-grafana-tm266                       1/1       Running   0          5m
 drycc-registry-1814324048-yomz5           1/1       Running   0          5m

@@ -177,7 +177,6 @@ STORAGE_PERSISTENCE_SIZE                                  | The size of the pers
 STORAGE_PERSISTENCE_STORAGE_CLASS                         | StorangeClass of `storage`; default storangeclass is used by default
 MONITOR_GRAFANA_PERSISTENCE_SIZE                          | The size of the persistence space allocated to `monitor.grafana`, which is `5Gi` by default
 MONITOR_GRAFANA_PERSISTENCE_STORAGE_CLASS                 | StorangeClass of `monitor` grafana; default storangeclass is used by default
-LOGGER_REPLICAS                                           | Number of logger replicas to deploy
 DATABASE_PERSISTENCE_SIZE                                 | The size of the persistence space allocated to `database`, which is `5Gi` by default
 DATABASE_PERSISTENCE_STORAGE_CLASS                        | StorangeClass of `database`; default storangeclass is used by default
 TIMESERIES_REPLICAS                                       | Number of timeseries replicas to deploy

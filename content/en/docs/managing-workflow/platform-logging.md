@@ -5,51 +5,21 @@ description: Logs are a stream of time-stamped events aggregated from the output
 weight: 4
 ---
 
-The logging platform is made up of 2 components - [Fluentbit](https://github.com/drycc/fluentbit) and [Logger](https://github.com/drycc/logger).
-
-[Fluentbit](https://github.com/drycc/fluentbit) runs on every worker node of the cluster and is deployed as a [Daemon Set](http://kubernetes.io/v1.1/docs/admin/daemons.html). The Fluentbit pods capture all of the stderr and stdout streams of every container running on the host (even those not hosted directly by kubernetes). Once the log message arrives in our [custom fluentbit plugin](https://github.com/drycc/fluentbit/tree/main/plugin) we determine where the message originated.
-
-If the message was from the [Workflow Controller](https://github.com/drycc/controller) or from an application deployed via workflow we send it to the logs topic on the local [Valkey Stream](http://valkey.io) instance.
-
-Logger then acts as a consumer reading messages off of the Valkey Stream logs topic storing those messages in a local Valkey instance. When a user wants to retrieve log entries using the `drycc logs` command we make an HTTP request from Controller to Logger which then fetches the appropriate data from Valkey.
-
-## Configuring Off Cluster Valkey
-
-Even though we provide a valkey instance with the default Workflow install, it is recommended that operators use a third-party source like Elasticache or similar offering. This way your data is durable across upgrades or outages. If you have a third-party Valkey installation you would like to use all you need to do is set the following values in your helm chart:
-
-* db = "0"
-* host = "my.host.valkey"
-* port = "6379"
-* password = ""
-
-These can be changed by running `helm inspect values drycc/workflow > values.yaml` before using
-`helm install` to complete the installation. To customize the valkey credentials, edit `values.yaml`
-and modify the `valkey` section of the file to tune these settings.
-
-## Debugging Logger
-
-If the `drycc logs` command encounters an error it will return the following message:
-
-```
-Error: There are currently no log messages. Please check the following things:
-1) Logger and fluentbit pods are running.
-2) The application is writing logs to the logger component by checking that an entry in the ring buffer was created: kubectl  --namespace=drycc logs <logger pod>
-3) Making sure that the container logs were mounted properly into the fluentbit pod: kubectl --namespace=drycc exec <fluentbit pod> ls /var/log/containers
-```
+We’re working with Quickwit to bring you an application log cluster and search interface.
 
 ## Architecture Diagram
 
 ```
-                        ┌────────┐                                        
-                        │ Router │                  ┌────────┐     ┌──────┐
-                        └────────┘                  │ Logger │<───>│Valkey│
-                            │                       └────────┘     └──────┘
-                        Log file                        ^                
-                            │                           |                
-                            ˅                           │                
-┌────────┐              ┌─────────┐    logs/metrics   ┌───────────────┐     
-│App Logs│──Log File──> │Fluentbit│───────topics─────>│ Valkey Stream │     
-└────────┘              └─────────┘                   └───────────────┘     
+┌───────────┐                   ┌───────────┐                     
+│ Container │                   │  Grafana  │
+└───────────┘                   └───────────┘
+      │                               ^
+     log                              |                
+      │                               |                
+      ˅                               │                
+┌───────────┐                   ┌───────────┐     
+│ Fluentbit │─────otel/grpc────>│  Quickwit │     
+└───────────┘                   └───────────┘     
                                                                           
 ```
 

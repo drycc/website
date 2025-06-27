@@ -89,25 +89,25 @@ images generated from the builder component. Registry persists the Container ima
 images to either local storage (in development mode) or to object storage
 configured for the cluster.
 
-## Logger: fluentbit, logger
+## Quickwit
 
-The logging subsystem consists of two components. Fluentbit handles log shipping
-and logger maintains a ring-buffer of application logs.
+**Project Location:** [drycc/quickwit](https://github.com/drycc/quickwit)
 
+Quickwit is the first engine to execute complex search and analytics queries directly on cloud storage with 
+sub-second latency. Powered by Rust and its decoupled compute and storage architecture, it is designed to 
+be resource-efficient, easy to operate, and scale to petabytes of data.
+
+Quickwit is a great fit for log management, distributed tracing, and generally immutable data such as 
+conversational data (emails, texts, messaging platforms) and event-based analytics.
+
+## Fluentbit
 
 **Project Location:** [drycc/fluentbit](https://github.com/drycc/fluentbit)
 
-Fluentbit is deployed to your Kubernetes cluster via Daemon Sets. Fluentbit
-subscribes to all container logs, decorates the output with Kubernetes metadata
-and can be configured to drain logs to multiple destinations. By default,
-Fluentbit ships logs to the logger component, which powers `drycc logs`.
+Fluent Bit is a fast and lightweight telemetry agent for logs, metrics, and traces for Linux, macOS, Windows, 
+and BSD family operating systems. Fluent Bit has been made with a strong focus on performance to allow the 
+collection and processing of telemetry data from different sources without complexity.
 
-**Project Location:** [drycc/logger](https://github.com/drycc/logger)
-
-The `logger` component receives log streams from `fluentbit`, collating by
-Application name. Logger does not persist logs to disk, instead maintaining an
-in-memory ring buffer. For more information on logger see the [project
-documentation][logger-documentation].
 
 ## Victoriametrics
 
@@ -147,7 +147,6 @@ Victoriametrics is an open-source systemsmonitoring and alerting toolkit origina
 [architecture]: architecture.md
 [concepts]: concepts.md
 [configure-objectstorage]: ../installing-workflow/configuring-object-storage.md
-[logger-documentation]: https://github.com/drycc/logger
 [release]: ../reference-guide/terms.md#release
 [using-buildpacks]: ../applications/using-buildpacks.md
 [using-dockerfiles]: ../applications/using-dockerfiles.md
