@@ -35,7 +35,7 @@ List the services:
 ```
 $ drycc services
 PTYPE      PORT    PROTOCOL    TARGET-PORT    DOMAIN                                    
-web        80      TCP         8000           python-getting-started.python-getting-started.svc.cluster.local  
+web        80      TCP         8000           python-getting-started.python-getting-started.svc  
 ```
 
 Add a new service for process type
