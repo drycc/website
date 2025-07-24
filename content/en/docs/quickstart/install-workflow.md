@@ -167,6 +167,8 @@ INSTALL_DRYCC_MIRROR                                      | Specify the accelera
 BUILDER_REPLICAS                                          | Number of builder replicas to deploy
 CONTROLLER_API_REPLICAS                                   | Number of controller api replicas to deploy
 CONTROLLER_CELERY_REPLICAS                                | Number of controller celery replicas to deploy
+CONTROLLER_METRIC_REPLICAS                                | Number of controller metric replicas to deploy
+CONTROLLER_MUTATE_REPLICAS                                | Number of controller mutate replicas to deploy
 CONTROLLER_WEBHOOK_REPLICAS                               | Number of controller webhook replicas to deploy
 CONTROLLER_APP_RUNTIME_CLASS                              | RuntimeClass is a feature for selecting the container runtime configuration.
 CONTROLLER_APP_GATEWAY_CLASS                              | GatewayClass allocated by `drycc gateways`; default GatewayClass is used by default
