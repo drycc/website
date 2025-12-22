@@ -106,14 +106,6 @@ KUBERNETES_POD_TERMINATION_GRACE_PERIOD_SECONDS | 发送 SIGKILL 之前，kubern
 
 有关这些的更多详细信息，请参阅[部署应用][]指南。
 
-## 自定义数据库
-
-[Database][] 组件可以调整以下环境变量：
-
-设置 | 描述
------------------ | ---------------------------------
-BACKUP_FREQUENCY  | 数据库执行基础备份的频率（默认："12h"）
-BACKUPS_TO_RETAIN | 后备存储应保留的基础备份数量（默认：5）
 
 ## 自定义 Fluentbit
 

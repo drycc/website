@@ -112,14 +112,6 @@ KUBERNETES_POD_TERMINATION_GRACE_PERIOD_SECONDS | how many seconds Kubernetes wa
 
 See the [Deploying Apps][] guide for more detailed information on those.
 
-## Customizing the Database
-
-The following environment variables are tunable for the [Database][] component:
-
-Setting           | Description
------------------ | ---------------------------------
-BACKUP_FREQUENCY  | how often the database should perform a base backup (default: "12h")
-BACKUPS_TO_RETAIN | number of base backups the backing store should retain (default: 5)
 
 ## Customizing Fluentbit
 
