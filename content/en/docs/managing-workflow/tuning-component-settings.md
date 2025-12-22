@@ -118,8 +118,7 @@ The following environment variables are tunable for the [Database][] component:
 
 Setting           | Description
 ----------------- | ---------------------------------
-BACKUP_FREQUENCY  | how often the database should perform a base backup (default: "12h")
-BACKUPS_TO_RETAIN | number of base backups the backing store should retain (default: 5)
+RETAIN_BACKUPS_AGE | number of base backups the backing store should retain (default: 30d)
 
 ## Customizing Fluentbit
 
