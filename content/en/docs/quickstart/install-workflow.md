@@ -216,6 +216,9 @@ When using this method to install Drycc, the following environment variables can
 | ACME_SERVER | ACME Server url, default use letsencrypt |
 | ACME_EAB_KEY_ID | The key ID of which your external account binding is indexed by the external account |
 | ACME_EAB_KEY_SECRET | The key Secret of which your external account symmetric MAC key |
+| CLUSTER_CIDR | K3S IPv4/IPv6 network CIDRs to use for pod IPs, default is `10.42.0.0/16` |
+| SERVICE_CIDR | K3S IPv4/IPv6 network CIDRs to use for service, default is `10.43.0.0/16` |
+| CLUSTER_POOL_IPV4_MASK_SIZE | Cilium IPv4 CIDR mask size to delegate to individual nodes for IPAM, default is `24` |
 
 Since the installation script will install k3s, other environment variables can refer to k3s installation [environment variables](https://rancher.com/docs/k3s/latest/en/installation/install-options/).
 
