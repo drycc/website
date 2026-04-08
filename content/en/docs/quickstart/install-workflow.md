@@ -69,6 +69,20 @@ For RHEL, CentOS, and EKS with EKS Kubernetes Worker AMI with AmazonLinux2 image
 $ yum install zstd
 ```
 
+### Installing open-iscsi
+
+For Debian and Ubuntu, use this command:
+
+```
+$ apt-get install open-iscsi
+```
+
+For RHEL, CentOS, and EKS with EKS Kubernetes Worker AMI with AmazonLinux2 image, use this command:
+
+```
+$ yum install iscsi-initiator-utils
+```
+
 ## Hardware
 
 Hardware requirements scale based on the size of your deployments. Minimum recommendations are outlined here.

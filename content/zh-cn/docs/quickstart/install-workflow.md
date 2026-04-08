@@ -70,6 +70,20 @@ $ apt-get install zstd
 $ yum install zstd
 ```
 
+### 安装 open-iscsi
+
+对于 Debian 和 Ubuntu，使用此命令：
+
+```
+$ apt-get install open-iscsi
+```
+
+对于 RHEL、CentOS 和 EKS 与 AmazonLinux2 镜像的 EKS Kubernetes Worker AMI，使用此命令：
+
+```
+$ yum install iscsi-initiator-utils
+```
+
 ## 硬件
 
 硬件要求基于您的部署规模而扩展。最低推荐在这里概述。
