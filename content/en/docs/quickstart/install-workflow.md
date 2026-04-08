@@ -104,12 +104,6 @@ Drycc needs a root domain name under your full control and points this domain na
 $ export PLATFORM_DOMAIN=dryccdoman.com
 ```
 
-Of course, if it is a test environment, we can also use `nip.io`, an IP to domain name service. For example, your host IP is `59.46.3.190`, we will get the following domain name `59.46.3.190.nip.io`:
-
-```
-$ export PLATFORM_DOMAIN=59.46.3.190.nip.io
-```
-
 ## Install
 
 Before installation, please make sure whether your installation environment is on the public network. If it is an intranet environment and there is no public IP, you need to disable the automatic certificate.

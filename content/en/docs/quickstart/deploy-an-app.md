@@ -55,7 +55,7 @@ Powered by Drycc
 If you see a 404 error, make sure you specified your application name with `-a <appname>`!
 {{% /alert %}}
 
-Workflow's edge router knows all about application names and automatically sends traffic to the right application. The router sends traffic for `proper-barbecue.104.197.125.75.nip.io` to your app, just like `drycc.104.197.125.75.nip.io` was sent to the Workflow API service.
+Workflow's edge router knows all about application names and automatically sends traffic to the right application. The router sends traffic for `proper-barbecue.example.drycc.com` to your app, just like `drycc.example.drycc.com` was sent to the Workflow API service.
 
 ## Change Application Configuration
 
@@ -71,7 +71,7 @@ Behind the scenes, Workflow creates a new release for your application and uses 
 Validate that our configuration change has worked:
 
 ```
-$ curl http://proper-barbecue.104.197.125.75.nip.io
+$ curl http://proper-barbecue.example.drycc.com
 Powered by Container Images + Kubernetes
 ```
 

@@ -104,14 +104,7 @@ Drycc 需要一个完全由您控制的根域名，并将此域名指向要安�
 我们需要在安装前设置 `PLATFORM_DOMAIN` 环境变量。
 
 ```
-$ export PLATFORM_DOMAIN=dryccdoman.co
-```
-
-当然，如果是测试环境，我们也可以使用 `nip.io`，一个 IP 到域名的服务。
-例如，您的主机 IP 是 `59.46.3.190`，我们将获得以下域名 `59.46.3.190.nip.io`
-
-```
-$ export PLATFORM_DOMAIN=59.46.3.190.nip.io
+$ export PLATFORM_DOMAIN=dryccdoman.com
 ```
 
 ## 安装

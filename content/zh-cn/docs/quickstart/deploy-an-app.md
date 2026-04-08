@@ -55,7 +55,7 @@ Powered by Drycc
 如果您看到 404 错误，请确保使用 `-a <appname>` 指定了您的应用程序名称！
 {{% /alert %}}
 
-Workflow 的边缘路由器知道所有关于应用程序名称的信息，并自动将流量发送到正确的应用程序。路由器将 `proper-barbecue.104.197.125.75.nip.io` 的流量发送到您的应用，就像 `drycc.104.197.125.75.nip.io` 被发送到 Workflow API 服务一样。
+Workflow 的边缘路由器知道所有关于应用程序名称的信息，并自动将流量发送到正确的应用程序。路由器将 `proper-barbecue.example.drycc.com` 的流量发送到您的应用，就像 `drycc.example.drycc.com` 被发送到 Workflow API 服务一样。
 
 ## 更改应用程序配置
 
@@ -71,7 +71,7 @@ Creating config... done
 验证我们的配置更改是否有效：
 
 ```
-$ curl http://proper-barbecue.104.197.125.75.nip.io
+$ curl http://proper-barbecue.example.drycc.com
 Powered by Container Images + Kubernetes
 ```
 
