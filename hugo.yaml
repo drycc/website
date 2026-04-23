@@ -181,24 +181,28 @@ params:
   links:
     # End user relevant links. These will show up on left side of footer and in the community page if you have one.
     user:
-      - name: "Tawk"
-        url: "https://tawk.to/chat/6234b5491ffac05b1d7f4669/1fueu8a9t"
-        icon: "fa fa-comment-dots"
-        desc: "Follow us on tawk to get the latest news!"
+      - name: "Forum"
+        url: "https://community.drycc.cc/"
+        icon: "fa fa-comments"
+        desc: "Join the discussion and ask questions in our community forum!"
+      - name: "YouTube"
+        url: "https://www.youtube.com/@drycc-community"
+        icon: "fab fa-youtube"
+        desc: "Watch our videos and tutorials on YouTube!"
       - name: "Reddit"
         url: "https://www.reddit.com/r/drycc"
         icon: "fa-brands fa-reddit"
-        desc: "Practical questions and curated answers"
+        desc: "Connect with other users and share your experiences on Reddit!"
     # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
     developer:
       - name: "GitHub"
         url: "https://github.com/drycc"
         icon: "fab fa-github"
-        desc: "Development takes place here!"
-      - name: "Slack"
-        url: "https://drycc.slack.com/"
-        icon: "fab fa-slack"
-        desc: "Chat with other project developers"
+        desc: "Contribute to our open source projects on GitHub!"
+      - name: "Addons"
+        url: "https://github.com/drycc-addons"
+        icon: "fab fa-puzzle-piece"
+        desc: "Explore our collection of addons and integrations built by the community!"
 
 # hugo module configuration
 module:
