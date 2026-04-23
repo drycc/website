@@ -184,6 +184,9 @@ When using this method to install Drycc, the following environment variables can
 | DRYCC_ADMIN_PASSWORD | Required item, specify Drycc's admin password |
 | CERT_MANAGER_ENABLED | Whether to use automatic certificate. It is `false` by default |
 | CHANNEL | By default, `stable` channel will be installed. You can also specify `testing` |
+| DRYCC_REGISTRY | Override the container image registry. Defaults to `registry.drycc.cc` |
+| GATEWAY_CLASS | The GatewayClass to use for installed ingress/gateway resources. Defaults to `istio` |
+| CONTAINERD_RUNTIMES | Comma-separated containerd runtimes to install, such as `runc`, `crun`, `kata`. Defaults to `runc` |
 | KUBERNETES_SERVICE_HOST | Set with the HOST of the loadbalancer that was in front of kube-apiserver |
 | KUBERNETES_SERVICE_PORT | Set with the PORT of the loadbalancer that was in front of kube-apiserver |
 | METALLB_CONFIG_FILE | The metallb config file path, layer 2 network is used by default |
@@ -227,6 +230,17 @@ When using this method to install Drycc, the following environment variables can
 | CLUSTER_CIDR | K3S IPv4/IPv6 network CIDRs to use for pod IPs, default is `10.42.0.0/16` |
 | SERVICE_CIDR | K3S IPv4/IPv6 network CIDRs to use for service, default is `10.43.0.0/16` |
 | CLUSTER_POOL_IPV4_MASK_SIZE | Cilium IPv4 CIDR mask size to delegate to individual nodes for IPAM, default is `24` |
+
+The installation script can also be run with a specific install function, for example:
+
+```bash
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_k3s_server
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_drycc
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_helmbroker
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - upgrade
+```
+
+If no command is specified, the script performs a full install: k3s server, Helm, network components, Longhorn, Mountpoint, Drycc, and Helmbroker.
 
 Since the installation script will install k3s, other environment variables can refer to k3s installation [environment variables](https://rancher.com/docs/k3s/latest/en/installation/install-options/).
 

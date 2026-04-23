@@ -83,19 +83,27 @@ Use `drycc run` to execute commands on the deployed application:
     -rw-r--r-- 1 root root   25 Dec  2 23:59 system.properties
     drwxr-xr-x 6 root root 4096 Dec  3 00:00 target
 
-## Share an Application
+## Manage access with Workspaces
 
-Use `drycc perms add` to allow another Drycc user to collaborate on your application:
+Application collaboration is now managed through workspaces instead of app-level permissions.
+Use `drycc workspaces invite` to add users to a workspace, and `drycc workspaces remove` to revoke access.
 
 ```
-$ drycc perms add otheruser view,change,delete
-Adding user otheruser as a collaborator for view,change,delete peachy-waxwork... done
+$ drycc workspaces invite my-workspace user@example.com
+Inviting user@example.com to my-workspace... done
 ```
 
-Use `drycc perms` to see who an application is currently shared with, and `drycc perms remove` to remove a collaborator.
+Use `drycc workspaces update` to change a member's role or alert settings, and `drycc workspaces info` to inspect workspace membership and permissions.
+
+To move an app between workspaces, use `drycc apps transfer`:
+
+```
+$ drycc apps transfer peachy-waxworks target-workspace
+Transferring peachy-waxworks to target-workspace... done
+```
 
 {{% alert title="Note" color="info" %}}
-Collaborators can do anything with an application that its owner can do, except delete the application.
+Workspace members are granted access according to their role, not via an app-level owner share. App transfer reassigns the application to another workspace.
 {{% /alert %}}
 
 When working with an application that has been shared with you, clone the original repository and add Drycc's git remote entry before attempting to `git push` any changes to Drycc:
@@ -201,20 +209,28 @@ Use `drycc run` to execute commands on the deployed application.
     drwxr-xr-x 6 root root 4096 Dec  3 00:00 target
 
 
-## Share an Application
+## Manage access with Workspaces
 
 
-Use `drycc perms add` to allow another Drycc user to collaborate on your application.
+Application collaboration is now managed through workspaces instead of app-level permissions.
+Use `drycc workspaces invite` to add users to a workspace, and `drycc workspaces remove` to revoke access.
 
 ```
-$ drycc perms add otheruser view,change,delete
-Adding user otheruser as a collaborator for view,change,delete peachy-waxwork... done
+$ drycc workspaces invite my-workspace user@example.com
+Inviting user@example.com to my-workspace... done
 ```
 
-Use `drycc perms` to see who an application is currently shared with, and `drycc perms remove` to remove a collaborator.
+Use `drycc workspaces update` to change a member's role or alert settings, and `drycc workspaces info` to inspect workspace membership and permissions.
+
+To move an app between workspaces, use `drycc apps transfer`:
+
+```
+$ drycc apps transfer peachy-waxworks target-workspace
+Transferring peachy-waxworks to target-workspace... done
+```
 
 {{% alert title="Note" color="info" %}}
-Collaborators can do anything with an application that its owner can do, except delete the application.
+Workspace members are granted access according to their role, not via an app-level owner share. App transfer reassigns the application to another workspace.
 {{% /alert %}}
 
 When working with an application that has been shared with you, clone the original repository and add Drycc' git remote

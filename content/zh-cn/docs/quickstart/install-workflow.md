@@ -189,6 +189,9 @@ DRYCC_ADMIN_USERNAME                                      | 必需项，指定 d
 DRYCC_ADMIN_PASSWORD                                      | 必需项，指定 drycc 的管理员密码
 CERT_MANAGER_ENABLED                                      | 是否使用自动证书。默认是 `false`
 CHANNEL                                                   | 默认安装 `stable` 通道。您也可以指定 `testing`
+DRYCC_REGISTRY                                            | 覆盖容器镜像注册表。默认为 `registry.drycc.cc`
+GATEWAY_CLASS                                             | 为安装的入口/网关资源指定 GatewayClass。默认为 `istio`
+CONTAINERD_RUNTIMES                                      | 要安装的 containerd 运行时列表，用逗号分隔，例如 `runc,crun,kata`。默认为 `runc`
 KUBERNETES_SERVICE_HOST                                   | 设置为 kube-apiserver 前面的负载均衡器的 HOST
 KUBERNETES_SERVICE_PORT                                   | 设置为 kube-apiserver 前面的负载均衡器的 PORT
 METALLB_CONFIG_FILE                                       | metallb 配置文件路径，默认使用 layer 2 网络
@@ -232,6 +235,17 @@ ACME_EAB_KEY_SECRET                                       | 您的外部账户�
 CLUSTER_CIDR                                              | K3S 用于 Pod IP 的 IPv4/IPv6 网络 CIDR，默认是 `10.42.0.0/16`
 SERVICE_CIDR                                              | K3S 用于 Service 的 IPv4/IPv6 网络 CIDR，默认是 `10.43.0.0/16`
 CLUSTER_POOL_IPV4_MASK_SIZE                               | Cilium 分配给各个节点用于 IPAM 的 IPv4 CIDR 掩码大小，默认是 `24`
+
+安装脚本还可以使用特定的安装函数运行，例如：
+
+```bash
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_k3s_server
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_drycc
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - install_helmbroker
+$ curl -sfL https://www.drycc.cc/install.sh | bash -s - upgrade
+```
+
+如果未指定命令，脚本会执行完整安装：k3s 服务器、Helm、网络组件、Longhorn、Mountpoint、Drycc 和 Helmbroker。
 
 由于安装脚本将安装 k3s，其他环境变量可以参考 k3s 安装 [环境变量](https://rancher.com/docs/k3s/latest/en/installation/install-options/)。
 

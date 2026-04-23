@@ -83,20 +83,28 @@ Drycc 应用 [使用一次性进程进行管理任务][] 如数据库迁移和�
     drwxr-xr-x 6 root root 4096 Dec  3 00:00 target
 
 
-## 共享应用
+## 使用 Workspace 管理访问
 
 
-使用 `drycc perms add` 允许其他 Drycc 用户与您协作应用。
+应用协作现在通过 Workspace 进行管理，而不是应用级别的权限。
+使用 `drycc workspaces invite` 将用户添加到工作区，使用 `drycc workspaces remove` 撤销访问。
 
 ```
-$ drycc perms add otheruser view,change,delete
-Adding user otheruser as a collaborator for view,change,delete peachy-waxwork... done
+$ drycc workspaces invite my-workspace user@example.com
+Inviting user@example.com to my-workspace... done
 ```
 
-使用 `drycc perms` 查看应用当前与谁共享，使用 `drycc perms remove` 删除协作者。
+使用 `drycc workspaces update` 修改成员的角色或提醒设置，使用 `drycc workspaces info` 检查工作区成员和权限。
+
+要在工作区之间移动应用，请使用 `drycc apps transfer`：
+
+```
+$ drycc apps transfer peachy-waxworks target-workspace
+Transferring peachy-waxworks to target-workspace... done
+```
 
 {{% alert title="Note" color="info" %}}
-协作者可以对应用执行所有者可以执行的任何操作，除了删除应用。
+Workspace 成员的访问权限由其角色决定，而不是通过应用级别的共享关系。应用转移会将应用重新分配到另一个工作区。
 {{% /alert %}}
 
 在使用与您共享的应用时，克隆原始存储库并在尝试 `git push` 任何更改到 Drycc 之前添加 Drycc 的 git 远程条目。

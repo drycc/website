@@ -45,9 +45,27 @@ Drycc 客户端为每个命令提供了全面的文档。使用 `drycc help` 来
     apps:logs          view aggregated application logs
     apps:run           run a command in an ephemeral app container
     apps:destroy       destroy an application
-    apps:transfer      transfer app ownership to another user
+    apps:transfer      transfer app to another workspace
 
     Use `drycc help [command]` to learn more
+
+## Workspace commands
+
+Drycc 现在使用基于 Workspace 的协作。使用 `drycc help workspaces` 管理工作区成员、邀请和角色：
+
+    $ drycc help workspaces
+    Valid commands for workspaces:
+
+    workspaces:create   create a new workspace
+    workspaces:list     list workspaces for current user
+    workspaces:info     view info about a workspace
+    workspaces:delete   delete a workspace
+    workspaces:invite   invite user to workspace
+    workspaces:remove   remove a user from a workspace
+    workspaces:update   update a workspace member's role or alerts
+    workspaces:switch   switch your default workspace
+
+使用 `drycc help workspaces` 查看完整命令详情。
 
 
 ## 支持多个配置文件
