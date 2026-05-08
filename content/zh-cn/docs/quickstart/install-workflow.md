@@ -235,6 +235,7 @@ ACME_EAB_KEY_SECRET                                       | 您的外部账户�
 CLUSTER_CIDR                                              | K3S 用于 Pod IP 的 IPv4/IPv6 网络 CIDR，默认是 `10.42.0.0/16`
 SERVICE_CIDR                                              | K3S 用于 Service 的 IPv4/IPv6 网络 CIDR，默认是 `10.43.0.0/16`
 CLUSTER_POOL_IPV4_MASK_SIZE                               | Cilium 分配给各个节点用于 IPAM 的 IPv4 CIDR 掩码大小，默认是 `24`
+CLUSTER_POOL_IPV4_PODCIDR_LIST                            | Cilium 分配给各个节点用于 IPAM 的 IPv4 CIDR列表范围, 默认是`10.0.0.0/8`
 
 安装脚本还可以使用特定的安装函数运行，例如：
 

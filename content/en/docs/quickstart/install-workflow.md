@@ -230,6 +230,7 @@ When using this method to install Drycc, the following environment variables can
 | CLUSTER_CIDR | K3S IPv4/IPv6 network CIDRs to use for pod IPs, default is `10.42.0.0/16` |
 | SERVICE_CIDR | K3S IPv4/IPv6 network CIDRs to use for service, default is `10.43.0.0/16` |
 | CLUSTER_POOL_IPV4_MASK_SIZE | Cilium IPv4 CIDR mask size to delegate to individual nodes for IPAM, default is `24` |
+| CLUSTER_POOL_IPV4_PODCIDR_LIST | Cilium IPv4 CIDR list range to delegate to individual nodes for IPAM., default is `10.0.0.0/8` |
 
 The installation script can also be run with a specific install function, for example:
 
