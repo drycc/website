@@ -19,12 +19,26 @@ NAME                      LISTENER       PORT     PROTOCOL    ADDRESSES
 python-getting-started    tcp-80-0       80       HTTP        101.65.132.51
 ```
 
-You can also add a port to this gateway or create a new one:
+You can also update this gateway by applying a YAML file in K8s-style format:
 
 ```
-$ drycc gateways add python-getting-started --port=443 --protocol=HTTPS
-Adding gateway python-getting-started to python-getting-started... done
+$ cat gateway.yaml
+apiVersion: controller.drycc.cc/v2.3
+kind: Gateway
+metadata:
+  name: python-getting-started
+spec:
+  ports:
+  - port: 80
+    protocol: HTTP
+  - port: 443
+    protocol: HTTPS
+
+$ drycc gateways apply gateway.yaml
+Applying gateway python-getting-started to python-getting-started... done
 ```
+
+`drycc gateways info` prints the gateway in K8s-style format, including `status` fields returned by the controller or cluster, similar to `kubectl get -o yaml`.
 
 ## Create a Service for an Application
 
@@ -56,11 +70,117 @@ NAME                           OWNER        KIND           GATEWAYS             
 python-getting-started         demo         HTTPRoute      ["python-getting-started:80"]         ["python-getting-started:80"]
 ```
 
-Create a new route and attach a gateway:
+### Route YAML Format
+
+Routes use a K8s-style manifest format with the following structure:
+
+| Field | Description |
+|-------|-------------|
+| `apiVersion` | API version, e.g. `controller.drycc.cc/v2.3` |
+| `kind` | Route type: `HTTPRoute`, `TCPRoute`, `UDPRoute`, `GRPCRoute`, `TLSRoute` |
+| `metadata.name` | Route name (required) |
+| `spec.parents` | List of parent gateways to attach this route to |
+| `spec.parents[].name` | Gateway name |
+| `spec.parents[].port` | Gateway port |
+| `spec.rules` | List of routing rules |
+| `spec.rules[].matches` | List of match conditions (path, headers, etc.) |
+| `spec.rules[].backends` | List of backend services to route traffic to |
+| `spec.rules[].backends[].kind` | Backend kind (typically `Service`) |
+| `spec.rules[].backends[].name` | Backend service name |
+| `spec.rules[].backends[].port` | Backend service port |
+| `spec.rules[].backends[].weight` | Traffic weight (0-100) |
+
+### Applying a Route
+
+Create or update a route by applying a YAML file:
 
 ```
-$ drycc routes add sleep HTTPRoute --ptype=sleep sleep:8001,100
-$ drycc routes attach sleep --gateway=python-getting-started --port=80
+$ cat route.yaml
+apiVersion: controller.drycc.cc/v2.3
+kind: HTTPRoute
+metadata:
+  name: sleep
+spec:
+  parents:
+  - name: python-getting-started
+    port: 80
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backends:
+    - kind: Service
+      name: python-getting-started-sleep
+      port: 8001
+      weight: 100
+
+$ drycc routes apply route.yaml
+Applying route sleep to python-getting-started... done
+```
+
+### Multiple Backends (Traffic Splitting)
+
+You can split traffic between multiple backends using weights:
+
+```yaml
+apiVersion: controller.drycc.cc/v2.3
+kind: HTTPRoute
+metadata:
+  name: canary
+spec:
+  parents:
+  - name: python-getting-started
+    port: 80
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backends:
+    - kind: Service
+      name: python-getting-started-web
+      port: 80
+      weight: 90
+    - kind: Service
+      name: python-getting-started-canary
+      port: 80
+      weight: 10
+```
+
+### Viewing Route Details
+
+`drycc routes info` prints the route in K8s-style format, including `status` fields such as `routable`, similar to `kubectl get -o yaml`.
+
+```
+$ drycc routes info sleep
+apiVersion: controller.drycc.cc/v2.3
+kind: HTTPRoute
+metadata:
+  name: sleep
+spec:
+  parents:
+  - name: python-getting-started
+    port: 80
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backends:
+    - kind: Service
+      name: python-getting-started-sleep
+      port: 8001
+      weight: 100
+status:
+  routable: true
+```
+
+### Removing a Route
+
+```
+$ drycc routes remove sleep
+Removing route sleep from python-getting-started... done
 ```
 
 [gateway-api]: https://gateway-api.sigs.k8s.io/
