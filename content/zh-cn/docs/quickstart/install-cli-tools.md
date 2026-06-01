@@ -10,7 +10,9 @@ weight: 3
 Drycc 命令行界面 (CLI) 让您与 Drycc Workflow 交互。
 使用 CLI 创建、配置和管理应用程序。
 
-使用以下命令为 Linux 或 Mac OS X 安装 `drycc` 客户端：
+### Linux / macOS
+
+使用以下命令为 Linux 或 macOS 安装 `drycc` 客户端：
 
 ```
 $ curl -sfL https://www.drycc.cc/install-cli.sh | bash -
@@ -21,6 +23,22 @@ $ curl -sfL https://www.drycc.cc/install-cli.sh | bash -
 
 ```
 $ curl -sfL https://www.drycc.cc/install-cli.sh | INSTALL_DRYCC_MIRROR=cn bash -
+```
+{{% /alert %}}
+
+### Windows
+
+在 Windows 上，打开 PowerShell 并运行：
+
+```powershell
+> irm https://www.drycc.cc/install-cli.ps1 | iex
+```
+
+{{% alert title="Note" color="danger" %}}
+中国大陆用户可以使用以下方法加速安装：
+
+```powershell
+> $env:INSTALL_DRYCC_MIRROR="cn"; irm https://www.drycc.cc/install-cli.ps1 | iex
 ```
 {{% /alert %}}
 

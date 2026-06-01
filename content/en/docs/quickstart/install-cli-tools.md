@@ -9,6 +9,8 @@ weight: 3
 
 The Drycc command-line interface (CLI) lets you interact with Drycc Workflow. Use the CLI to create, configure, and manage applications.
 
+### Linux / macOS
+
 Install the `drycc` client for Linux or macOS with:
 
 ```
@@ -20,6 +22,22 @@ Users in mainland China can use the following method to speed up installation:
 
 ```
 $ curl -sfL https://www.drycc.cc/install-cli.sh | INSTALL_DRYCC_MIRROR=cn bash -
+```
+{{% /alert %}}
+
+### Windows
+
+On Windows, open PowerShell and run:
+
+```powershell
+> irm https://www.drycc.cc/install-cli.ps1 | iex
+```
+
+{{% alert title="Note" color="danger" %}}
+Users in mainland China can use the following method to speed up installation:
+
+```powershell
+> $env:INSTALL_DRYCC_MIRROR="cn"; irm https://www.drycc.cc/install-cli.ps1 | iex
 ```
 {{% /alert %}}
 
