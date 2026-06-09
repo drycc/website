@@ -44,7 +44,7 @@ Drycc Workflow 的 Helm chart 可以轻松配置以将 Workflow 控制器组件�
     * 保存您的更改。
     * 注意：您不需要（也不必须）对任何值进行 base64 编码，因为 Helm chart 将根据需要自动处理编码。
 
-现在您可以使用 `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml` [照常][installing]安装。
+现在您可以使用 `helm install drycc oci://registry.drycc.cc/drycc/charts/workflow --namespace drycc -f values.yaml` [照常][installing]安装。
 
 [database]: ../understanding-workflow/components.md#database
 [object storage]: configuring-object-storage.md

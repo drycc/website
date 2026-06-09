@@ -34,7 +34,7 @@ If you are using AWS S3 and your Kubernetes nodes are configured with appropriat
 
 Operators should configure object storage by editing the Helm values file before running `helm install`. To do so:
 
-* Fetch the Helm values by running `helm inspect values oci://registry.drycc.cc/charts/workflow > values.yaml`
+* Fetch the Helm values by running `helm inspect values oci://registry.drycc.cc/drycc/charts/workflow > values.yaml`
 * Update the `builder/storage` and `registry/storage` parameters to reference the platform you are using.
 * Find the corresponding section for your storage type and provide appropriate values including region, bucket names, and access credentials.
 * Save your changes.
@@ -42,7 +42,7 @@ Operators should configure object storage by editing the Helm values file before
 {{% alert title="Note" color="info" %}}
 Assume we are using MinIO's play for storage, noting that it is only a test server and should not be used in production environments:
 
-	$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+	$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
 		--namespace drycc \
 		--set global.platformDomain=youdomain.com \
 		--set builder.storageBucket=registry \
@@ -57,7 +57,7 @@ Assume we are using MinIO's play for storage, noting that it is only a test serv
 		--set registry.storagePathStyle=auto
 {{% /alert %}}
 
-You are now ready to run `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml` using your desired object storage.
+You are now ready to run `helm install drycc oci://registry.drycc.cc/drycc/charts/workflow --namespace drycc -f values.yaml` using your desired object storage.
 
 
 [storage]: ../understanding-workflow/components.md#object-storage

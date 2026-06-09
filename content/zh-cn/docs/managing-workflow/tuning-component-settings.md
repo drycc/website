@@ -11,11 +11,11 @@ weight: 1
 
  - 如果值在上面派生的 `values.yaml` 文件中暴露，可以修改组件的部分来调整这些设置。修改的值将在图表安装或发布升级时通过以下两个相应命令之一生效：
 
-        $ helm install drycc oci://registry.drycc.cc/charts/workflow \
+        $ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
             -n drycc \
             --namespace drycc \
             -f values.yaml
-        $ helm upgrade drycc oci://registry.drycc.cc/charts/workflow \
+        $ helm upgrade drycc oci://registry.drycc.cc/drycc/charts/workflow \
             -n drycc \
             --namespace drycc \
             -f values.yaml
@@ -28,7 +28,7 @@ weight: 1
 
  - 最后，可以获取并编辑版本控制/图表仓库本身提供的图表：
 
-        $ helm fetch oci://registry.drycc.cc/charts/workflow --untar
+        $ helm fetch oci://registry.drycc.cc/drycc/charts/workflow --untar
         $ $EDITOR workflow/charts/controller/templates/controller-deployment.yaml
 
     然后运行 `helm install ./workflow --namespace drycc --name drycc` 来应用更改，或者如果集群已经在运行，则运行 `helm upgrade drycc ./workflow`。

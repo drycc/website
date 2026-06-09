@@ -10,7 +10,7 @@ weight: 2
 现在 Helm 已安装并添加了仓库，通过运行以下命令使用原生网关安装 Workflow：
 
 ```
-$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
     --namespace drycc \
     --set gateway.gatewayClass=istio \
     --set controller.appGatewayClass=istio \
@@ -20,7 +20,7 @@ $ helm install drycc oci://registry.drycc.cc/charts/workflow \
 
 当然，如果您在裸机上部署，您可能没有负载均衡器。您需要使用 NodePort：
 ```
-$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
     --namespace drycc \
     --set gateway.gatewayClass=istio \
     --set controller.appGatewayClass=istio \

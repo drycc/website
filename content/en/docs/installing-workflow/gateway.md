@@ -10,7 +10,7 @@ weight: 2
 Now that Helm is installed and the repository has been added, install Workflow with a native gateway by running:
 
 ```
-$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
     --namespace drycc \
     --set gateway.gatewayClass=istio \
     --set controller.appGatewayClass=istio \
@@ -21,7 +21,7 @@ $ helm install drycc oci://registry.drycc.cc/charts/workflow \
 Of course, if you deploy it on a bare machine, you probably do not have a load balancer. You need to use NodePort:
 
 ```
-$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
     --namespace drycc \
     --set gateway.gatewayClass=istio \
     --set controller.appGatewayClass=istio \

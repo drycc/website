@@ -13,11 +13,11 @@ There are a few ways to customize the respective component:
 
  - If the value is exposed in the `values.yaml` file as derived above, one may modify the section of the component to tune these settings.  The modified value(s) will then take effect at chart installation or release upgrade time via either of the two respective commands:
 
-        $ helm install drycc oci://registry.drycc.cc/charts/workflow \
+        $ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
             -n drycc \
             --namespace drycc \
             -f values.yaml
-        $ helm upgrade drycc oci://registry.drycc.cc/charts/workflow \
+        $ helm upgrade drycc oci://registry.drycc.cc/drycc/charts/workflow \
             -n drycc \
             --namespace drycc \
             -f values.yaml
@@ -30,7 +30,7 @@ There are a few ways to customize the respective component:
 
  - Lastly, one may also fetch and edit the chart as served by version control/the chart repository itself:
 
-        $ helm fetch oci://registry.drycc.cc/charts/workflow --untar
+        $ helm fetch oci://registry.drycc.cc/drycc/charts/workflow --untar
         $ $EDITOR workflow/charts/controller/templates/controller-deployment.yaml
 
     Then run `helm install ./workflow --namespace drycc --name drycc` to apply the changes, or `helm upgrade drycc ./workflow` if the cluster is already running.

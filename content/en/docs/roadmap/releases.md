@@ -139,7 +139,7 @@ this chart will also be packaged, signed and uploaded to its production chart re
 verify it can be fetched (and verified):
 
 ```
-$ helm fetch oci://registry.drycc.cc/charts/controller --version 1.0.0
+$ helm fetch oci://registry.drycc.cc/drycc/charts/controller --version 1.0.0
 Verification: &{0xc4207ec870 sha256:026e766e918ff28d2a7041bc3d560d149ee7eb0cb84165c9d9d00a3045ff45c3 controller-v1.0.1.tgz}
 ```
 
@@ -212,7 +212,7 @@ the chart versions existing in the `WORKFLOW_PREV_RELEASE` chart and the _most r
 (Therefore, if there are any unreleased commits in a component repo, they will not appear here):
 
 ```bash
-helm fetch --untar oci://registry.drycc.cc/charts/workflow --version $WORKFLOW_PREV_RELEASE
+helm fetch --untar oci://registry.drycc.cc/drycc/charts/workflow --version $WORKFLOW_PREV_RELEASE
 dryccrel changelog global workflow/requirements.lock map.json > changelog-$WORKFLOW_RELEASE.md
 ```
 

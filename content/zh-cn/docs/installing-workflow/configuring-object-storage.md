@@ -33,7 +33,7 @@ Drycc Workflow 的 helm chart 可以轻松配置以将 Workflow 组件连接到�
 
 操作员应该在运行 `helm install` 之前通过编辑 Helm values 文件来配置对象存储。为此：
 
-* 通过运行 `helm inspect values oci://registry.drycc.cc/charts/workflow > values.yaml` 获取 Helm values
+* 通过运行 `helm inspect values oci://registry.drycc.cc/drycc/charts/workflow > values.yaml` 获取 Helm values
 * 更新 `builder/storage` 和 `registry/storage` 参数以引用您使用的平台。
 * 找到您的存储类型的相应部分，并提供适当的值，包括区域、桶名称和访问凭据。
 * 保存您的更改。
@@ -41,7 +41,7 @@ Drycc Workflow 的 helm chart 可以轻松配置以将 Workflow 组件连接到�
 {{% alert title="Note" color="info" %}}
 假设我们使用 MinIO 的 Play 作为存储，需要注意的是它仅是一个测试服务器，不应在生产环境中使用：
 
-	$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+	$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
 		--namespace drycc \
 		--set global.platformDomain=youdomain.com \
 		--set builder.storageBucket=registry \
@@ -56,7 +56,7 @@ Drycc Workflow 的 helm chart 可以轻松配置以将 Workflow 组件连接到�
 		--set registry.storagePathStyle=auto
 {{% /alert %}}
 
-现在您可以使用所需的集群外对象存储运行 `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml`。
+现在您可以使用所需的集群外对象存储运行 `helm install drycc oci://registry.drycc.cc/drycc/charts/workflow --namespace drycc -f values.yaml`。
 
 
 [storage]: ../understanding-workflow/components.md#object-storage

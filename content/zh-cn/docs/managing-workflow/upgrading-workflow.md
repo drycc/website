@@ -25,7 +25,7 @@ Helm 将从之前的版本中移除所有组件。通过 Workflow 部署的应�
 首先，使用 `helm ls` 查找 helm 给您的部署的版本名称，然后运行
 
 ```
-$ helm upgrade <release-name> oci://registry.drycc.cc/charts/workflow
+$ helm upgrade <release-name> oci://registry.drycc.cc/drycc/charts/workflow
 ```
 
 **注意：** 如果使用 [gcs](https://cloud.google.com/storage/) 上的集群外对象存储和/或使用 [gcr](https://cloud.google.com/container-registry/) 的集群外注册表，并打算从 pre-`v2.10.0` 图表升级到 `v2.10.0` 或更高版本，现在需要预先 base64 编码 `key_json` 值。因此，假设其余的自定义/集群外值在用于之前安装的现有 `values.yaml` 中定义，可以运行以下命令：

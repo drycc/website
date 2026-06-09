@@ -29,7 +29,7 @@ Drycc Workflow currently supports:
     * Update the `registry.enabled` parameter to reference the registry location you are using: `true`, `false`
     * Update the values in the section which corresponds to your registry location type.
 
-You are now ready to `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml` using your desired registry.
+You are now ready to `helm install drycc oci://registry.drycc.cc/drycc/charts/workflow --namespace drycc -f values.yaml` using your desired registry.
 
 ## Examples
 Here we show how the relevant parts of the fetched `values.yaml` file might look after configuring for a particular off-cluster registry:

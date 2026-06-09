@@ -29,7 +29,7 @@ Drycc Workflow 目前支持：
     * 将 `registry.enabled` 参数更新为引用您使用的注册表位置：`true`、`false`
     * 更新与您的注册表位置类型对应的部分中的值。
 
-现在您可以使用所需的注册表运行 `helm install drycc oci://registry.drycc.cc/charts/workflow --namespace drycc -f values.yaml`。
+现在您可以使用所需的注册表运行 `helm install drycc oci://registry.drycc.cc/drycc/charts/workflow --namespace drycc -f values.yaml`。
 
 ## 示例
 在这里，我们展示了获取的 `values.yaml` 文件的相关部分在为特定集群外注册表配置后可能的样子：

@@ -109,7 +109,7 @@ Creating changelog for controller with tag v2.8.1 through commit 943a49267eeb285
 如果组件有相关的 [Kubernetes Helm][] 图表，此图表也将被打包、签名并上传到其生产图表仓库。请验证它可以被获取（并验证）：
 
 ```
-$ helm fetch oci://registry.drycc.cc/charts/controller --version 1.0.0
+$ helm fetch oci://registry.drycc.cc/drycc/charts/controller --version 1.0.0
 Verification: &{0xc4207ec870 sha256:026e766e918ff28d2a7041bc3d560d149ee7eb0cb84165c9d9d00a3045ff45c3 controller-v1.0.1.tgz}
 ```
 
@@ -169,7 +169,7 @@ export WORKFLOW_RELEASE=v2.17.0 WORKFLOW_PREV_RELEASE=v2.16.0  # 例如
 我们将使用 `WORKFLOW_PREV_RELEASE` 图表的 `requirements.lock` 文件，以及 repo-to-chart-name [映射文件](https://github.com/drycc/dryccrel/blob/main/map.json)，这次调用 `dryccrel changelog global` 来获取图表版本在 `WORKFLOW_PREV_RELEASE` 图表中存在和 GitHub 中存在的 _最新_ 发布之间的所有组件更改。（因此，如果组件仓库中有任何未发布的提交，它们不会出现在这里）：
 
 ```bash
-helm fetch --untar oci://registry.drycc.cc/charts/workflow --version $WORKFLOW_PREV_RELEASE
+helm fetch --untar oci://registry.drycc.cc/drycc/charts/workflow --version $WORKFLOW_PREV_RELEASE
 dryccrel changelog global workflow/requirements.lock map.json > changelog-$WORKFLOW_RELEASE.md
 ```
 

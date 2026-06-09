@@ -47,7 +47,7 @@ kubectl create ns drycc
 如果您想更改它，请在使用 helm 时设置变量。
 
 ```
-$ helm install drycc oci://registry.drycc.cc/charts/workflow \
+$ helm install drycc oci://registry.drycc.cc/drycc/charts/workflow \
     --namespace drycc \
     --set builder.imageRegistry=quay.io \
     --set imagebuilder.imageRegistry=quay.io \
