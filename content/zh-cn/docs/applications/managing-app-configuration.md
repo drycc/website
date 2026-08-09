@@ -119,37 +119,37 @@ Drycc 将数据库、缓存和队列等后端服务视为[附加资源][]。
 
 ## 自定义健康检查
 
-默认情况下，Workflow 仅检查应用程序是否在其容器中启动。可以为应用程序配置健康检查探针来添加健康检查。健康检查作为 Kubernetes 容器探针实现。可以配置 'startupProbe' 'livenessProbe' 和 'readinessProbe'，每个探针可以是 'httpGet'、'exec' 或 'tcpSocket' 类型，具体取决于容器所需的探针类型。
+默认情况下，Workflow 仅检查应用程序是否在其容器中启动。可以为应用程序配置健康检查探针来添加健康检查。健康检查作为 Kubernetes 容器探针实现。可以配置 'startup_probe' 'liveness_probe' 和 'readiness_probe'，每个探针可以是 'http_get'、'exec' 或 'tcp_socket' 类型，具体取决于容器所需的探针类型。
 
-'startupProbe' 指示容器内的应用程序是否已启动。
+'startup_probe' 指示容器内的应用程序是否已启动。
 如果提供了启动探针，则所有其他探针都被禁用，直到它成功。
 如果启动探针失败，容器将受到其重启策略的影响。
 
-'livenessProbe' 对于长时间运行的应用程序很有用，最终
+'liveness_probe' 对于长时间运行的应用程序很有用，最终
 会过渡到损坏状态，除非通过重启它们，否则无法恢复。
 
-其他时候，'readinessProbe' 很有用，当容器只是暂时无法
-服务，并且会自行恢复。在这种情况下，如果容器未能通过 'readinessProbe'，
+其他时候，'readiness_probe' 很有用，当容器只是暂时无法
+服务，并且会自行恢复。在这种情况下，如果容器未能通过 'readiness_probe'，
 容器不会被关闭，而是容器将停止接收
 传入请求。
 
-'httpGet' 探针正如其名称：它在容器上执行 HTTP GET 操作。
-200-399 范围内的响应代码被视为通过。'httpGet' 探针接受一个
+'http_get' 探针正如其名称：它在容器上执行 HTTP GET 操作。
+200-399 范围内的响应代码被视为通过。'http_get' 探针接受一个
 端口号，以便在容器上执行 HTTP GET 操作。
 
 'exec' 探针在容器内运行命令来确定其健康状况。退出代码为
 零被视为通过，而非零状态代码被视为失败。'exec'
 探针接受要在容器内运行的参数字符串。
 
-'tcpSocket' 探针尝试在容器中打开套接字。只有当检查可以建立连接时，容器才被视为健康。'tcpSocket' 探针接受一个
+'tcp_socket' 探针尝试在容器中打开套接字。只有当检查可以建立连接时，容器才被视为健康。'tcp_socket' 探针接受一个
 端口号，以便在容器上执行套接字连接。
 
 可以使用 `drycc healthchecks set` 为每个应用程序的每个 proctype 配置健康检查。如果未提及类型，则健康检查将应用于默认进程类型 web（无论存在哪个）。要
-配置 `httpGet` liveness 探针：
+配置 `http_get` liveness 探针：
 
 ```
-$ drycc healthchecks set livenessProbe httpGet 80 --ptype web
-Applying livenessProbe healthcheck... done
+$ drycc healthchecks set liveness_probe http_get 80 --ptype web
+Applying liveness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -157,17 +157,17 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 livenessProbe web http-get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
+                 liveness_probe web http_get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 If the application relies on certain headers being set (such as the `Host` header) or a specific
 URL path relative to the root, you can also send specific HTTP headers:
 
 ```
-$ drycc healthchecks set livenessProbe httpGet 80 \
+$ drycc healthchecks set liveness_probe http_get 80 \
     --path /welcome/index.html \
     --headers "X-Client-Version:v1.0,X-Foo:bar"
-Applying livenessProbe healthcheck... done
+Applying liveness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -175,14 +175,14 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 livenessProbe web http-get headers=[X-Client-Version=v1.0] path=/welcome/index.html port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
+                 liveness_probe web http_get headers=[X-Client-Version=v1.0] path=/welcome/index.html port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 To configure an `exec` readiness probe:
 
 ```
-$ drycc healthchecks set readinessProbe exec -- /bin/echo -n hello --ptype web
-Applying readinessProbe healthcheck... done
+$ drycc healthchecks set readiness_probe exec -- /bin/echo -n hello --ptype web
+Applying readiness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -190,14 +190,14 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 readinessProbe web exec /bin/echo -n hello delay=50s timeout=50s period=10s #success=1 #failure=3
+                 readiness_probe web exec /bin/echo -n hello delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 You can overwrite a probe by running `drycc healthchecks set` again:
 
 ```
-$ drycc healthchecks set readinessProbe httpGet 80 --ptype web
-Applying livenessProbe healthcheck... done
+$ drycc healthchecks set readiness_probe http_get 80 --ptype web
+Applying liveness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -205,7 +205,7 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 livenessProbe web http-get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
+                 liveness_probe web http_get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 Configured health checks also modify the default application deploy behavior. When starting a new

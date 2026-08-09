@@ -89,7 +89,7 @@ Kubernetes 负责整个部署，在后台进行滚动更新。因此，只有一
 
 #### 基础超时的附加项
 
-基础超时也会通过健康检查使用 `liveness` 和 `readiness` 上的 `initialDelaySeconds` 进行扩展，其中应用较大的那个。
+基础超时也会通过健康检查使用 `liveness` 和 `readiness` 上的 `initial_delay_seconds` 进行扩展，其中应用较大的那个。
 此外，超时系统通过在看到镜像拉取超过 1 分钟时添加额外 10 分钟来考虑慢速镜像拉取。这允许超时值合理，而不必在基础部署超时中考虑镜像拉取的缓慢。
 
 ### Deployments

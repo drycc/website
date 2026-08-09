@@ -85,7 +85,7 @@ This timeout defines how long to wait for each batch to complete within `DRYCC_D
 #### Timeout Extensions
 
 The base timeout extends for:
-- Health checks using `initialDelaySeconds` on liveness/readiness probes (uses the larger value)
+- Health checks using `initial_delay_seconds` on liveness/readiness probes (uses the larger value)
 - Slow image pulls (adds 10 minutes when pulls exceed 1 minute)
 
 ### Deployments

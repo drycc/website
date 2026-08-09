@@ -108,31 +108,31 @@ Clear the cache using this procedure:
 
 ## Custom Health Checks
 
-By default, Workflow verifies that applications start in their containers. Add health checks by configuring probes for the application. Health checks use Kubernetes Container Probes with three types: `startupProbe`, `livenessProbe`, and `readinessProbe`. Each probe supports `httpGet`, `exec`, or `tcpSocket` checks.
+By default, Workflow verifies that applications start in their containers. Add health checks by configuring probes for the application. Health checks use Kubernetes Container Probes with three types: `startup_probe`, `liveness_probe`, and `readiness_probe`. Each probe supports `http_get`, `exec`, or `tcp_socket` checks.
 
 ### Probe Types
 
-- **startupProbe**: Indicates whether the application has started. Disables other probes until successful. Failure triggers restart policy.
+- **startup_probe**: Indicates whether the application has started. Disables other probes until successful. Failure triggers restart policy.
 
-- **livenessProbe**: Useful for long-running applications that may break and need restarting.
+- **liveness_probe**: Useful for long-running applications that may break and need restarting.
 
-- **readinessProbe**: Useful when containers temporarily cannot serve requests but will recover. Failed containers stop receiving traffic but don't restart.
+- **readiness_probe**: Useful when containers temporarily cannot serve requests but will recover. Failed containers stop receiving traffic but don't restart.
 
 ### Check Types
 
-- **httpGet**: Performs HTTP GET on the container. Response codes 200-399 pass. Specify port number.
+- **http_get**: Performs HTTP GET on the container. Response codes 200-399 pass. Specify port number.
 
 - **exec**: Runs a command in the container. Exit code 0 passes, non-zero fails. Provide command arguments.
 
-- **tcpSocket**: Attempts to open a socket connection. Container is healthy if connection succeeds. Specify port number.
+- **tcp_socket**: Attempts to open a socket connection. Container is healthy if connection succeeds. Specify port number.
 
 Configure health checks per process type using `drycc healthchecks set`. Defaults to `web` process type if not specified.
 
 Configure an HTTP GET liveness probe:
 
 ```
-$ drycc healthchecks set livenessProbe httpGet 80 --ptype web
-Applying livenessProbe healthcheck... done
+$ drycc healthchecks set liveness_probe http_get 80 --ptype web
+Applying liveness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -140,16 +140,16 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 livenessProbe web http-get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
+                 liveness_probe web http_get headers=[] path=/ port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 Include specific headers or paths:
 
 ```
-$ drycc healthchecks set livenessProbe httpGet 80 \
+$ drycc healthchecks set liveness_probe http_get 80 \
     --path /welcome/index.html \
     --headers "X-Client-Version:v1.0,X-Foo:bar"
-Applying livenessProbe healthcheck... done
+Applying liveness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -157,14 +157,14 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 livenessProbe web http-get headers=[X-Client-Version=v1.0] path=/welcome/index.html port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
+                 liveness_probe web http_get headers=[X-Client-Version=v1.0] path=/welcome/index.html port=80 delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 Configure an exec readiness probe:
 
 ```
-$ drycc healthchecks set readinessProbe exec -- /bin/echo -n hello --ptype web
-Applying readinessProbe healthcheck... done
+$ drycc healthchecks set readiness_probe exec -- /bin/echo -n hello --ptype web
+Applying readiness_probe healthcheck... done
 
 App:             peachy-waxworks
 UUID:            afd84067-29e9-4a5f-9f3a-60d91e938812
@@ -172,7 +172,7 @@ Owner:           dev
 Created:         2023-12-08T10:25:00Z
 Updated:         2023-12-08T10:25:00Z
 Healthchecks:
-                 readinessProbe web exec /bin/echo -n hello delay=50s timeout=50s period=10s #success=1 #failure=3
+                 readiness_probe web exec /bin/echo -n hello delay=50s timeout=50s period=10s #success=1 #failure=3
 ```
 
 Overwrite probes by running `drycc healthchecks set` again. Health checks modify deployment behavior - Workflow waits for checks to pass before proceeding to the next pod.
