@@ -29,10 +29,6 @@ config/[a-z0-9]+(\.[a-z0-9]+)*::
 
 ### 配置格式
 
-Environment variables follow <NAME>=<VALUE> formatting. By convention, but not rule, environment variable names are always capitalized.
-
-### 配置格式
-
 环境变量遵循 <NAME>=<VALUE> 格式。按照惯例，但不是规则，环境变量名称总是大写的。
 
 ```
@@ -42,7 +38,7 @@ JVM_OPTIONS=-XX:+UseG1GC
 
 ### 流水线格式
 
-清单有三个顶级部分。
+清单包含以下顶级部分。
 
 - build – 指定要构建的 Dockerfile。
 - env – 指定容器中的环境变量。
@@ -76,40 +72,3 @@ args = ["bundle exec puma -C config/puma.rb"]
 ```
 
 有关更多部署信息，请参考 drycc [示例](https://github.com/drycc/samples)。
-
-### Pipeline format
-
-A manifest has three top-level sections.
-
-- build – Specifies the to build Dockerfile.
-- env – Specifies environment variables in container.
-- run – Specifies the release phase tasks to execute.
-- config – Specifies config group, global group automatic reference.
-- deploy – Specifies the commands and args to deploy.
-
-Here’s an example that illustrates using a manifest to build Docker images.
-
-```toml
-ptype = "web"
-config = ["jvmconfig"]
-
-[build]
-docker = "Dockerfile"
-
-[build.arg]
-CODENAME = "bookworm"
-
-[env]
-VERSION = "1.2.1"
-
-[run]
-command = ["./deployment-tasks.sh"]
-image = "task"
-timeout = 100
-
-[deploy]
-command = ["bash", "-ec"]
-args = ["bundle exec puma -C config/puma.rb"]
-```
-
-For more deployment information, please refer to the drycc [examples](https://github.com/drycc/samples).
