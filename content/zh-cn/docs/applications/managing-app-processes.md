@@ -230,7 +230,7 @@ Args:
                   - gunicorn_config.py                         
                   - helloworld.wsgi:application                
 State:            running                                      
-  startedAt:      "2024-05-24T07:14:39Z"                       
+  started_at:     2024-05-24T07:14:39Z
 Ready:            true                                         
 Restart Count:    0                 
 
