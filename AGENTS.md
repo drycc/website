@@ -142,6 +142,10 @@ port = 8001
 
 Enum values such as `HTTPRoute` and `PathPrefix` are values, not keys, so they stay as-is. Note the bare `[[rules]]` header is required — it declares `rules` as a list.
 
+### CLI Output Examples
+
+`info` output examples must mirror the real CLI output: `<domain> info` never prints `app` — the app comes from the command context (`--app` flag or client config), and `apply` ignores the field. Only writable fields plus genuinely read-only ones (e.g. `addresses`, `routable`) appear.
+
 ## Build and Preview
 
 ### Local Development

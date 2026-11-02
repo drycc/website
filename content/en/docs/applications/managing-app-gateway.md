@@ -58,7 +58,6 @@ Each `[[ports]]` header declares one entry of the port list. Applying a gateway 
 
 ```
 $ drycc gateways info python-getting-started
-app = "python-getting-started"
 name = "python-getting-started"
 
 [[ports]]
@@ -191,7 +190,6 @@ weight = 10
 
 ```
 $ drycc routes info sleep
-app = "python-getting-started"
 name = "sleep"
 kind = "HTTPRoute"
 routable = true

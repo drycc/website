@@ -58,7 +58,6 @@ Applying gateway python-getting-started to python-getting-started... done
 
 ```
 $ drycc gateways info python-getting-started
-app = "python-getting-started"
 name = "python-getting-started"
 
 [[ports]]
@@ -192,7 +191,6 @@ weight = 10
 
 ```
 $ drycc routes info sleep
-app = "python-getting-started"
 name = "sleep"
 kind = "HTTPRoute"
 routable = true
