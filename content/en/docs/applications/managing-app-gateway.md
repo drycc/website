@@ -15,30 +15,62 @@ List the gateways:
 
 ```
 $ drycc gateways
-NAME                      LISTENER       PORT     PROTOCOL    ADDRESSES
-python-getting-started    tcp-80-0       80       HTTP        101.65.132.51
+NAME                      PORT     PROTOCOL    ADDRESSES
+python-getting-started    80       HTTP        101.65.132.51
 ```
 
-You can also update this gateway by applying a YAML file in K8s-style format:
+### Gateway TOML Format
+
+Gateways are managed by applying a TOML file with the following structure:
+
+| Field | Description |
+|-------|-------------|
+| `name` | Gateway name (required) |
+| `ports` | List of ports the gateway listens on (required) |
+| `ports[].port` | Network port number (1-65535) |
+| `ports[].protocol` | Network protocol: `HTTP`, `HTTPS`, `TCP`, `UDP`, `TLS` |
+
+### Applying a Gateway
+
+Create or update a gateway by applying a TOML file:
 
 ```
-$ cat gateway.yaml
-apiVersion: controller.drycc.cc/v2.3
-kind: Gateway
-metadata:
-  name: python-getting-started
-spec:
-  ports:
-  - port: 80
-    protocol: HTTP
-  - port: 443
-    protocol: HTTPS
+$ cat gateway.toml
+name = "python-getting-started"
 
-$ drycc gateways apply gateway.yaml
+[[ports]]
+port = 80
+protocol = "HTTP"
+
+[[ports]]
+port = 443
+protocol = "HTTPS"
+
+$ drycc gateways apply gateway.toml
 Applying gateway python-getting-started to python-getting-started... done
 ```
 
-`drycc gateways info` prints the gateway in K8s-style format, including `status` fields returned by the controller or cluster, similar to `kubectl get -o yaml`.
+Each `[[ports]]` header declares one entry of the port list. Applying a gateway replaces its entire port list.
+
+### Viewing Gateway Details
+
+`drycc gateways info` prints the gateway as TOML, including read-only fields such as `addresses`:
+
+```
+$ drycc gateways info python-getting-started
+app = "python-getting-started"
+name = "python-getting-started"
+
+[[ports]]
+  port = 80
+  protocol = "HTTP"
+
+[[addresses]]
+  type = "IPAddress"
+  value = "101.65.132.51"
+```
+
+You can save this output to a file, edit the `[[ports]]` entries, and apply it again to update the gateway. Read-only fields such as `app` and `addresses` are ignored when applying.
 
 ## Create a Service for an Application
 
@@ -66,56 +98,59 @@ List the routes:
 
 ```
 $ drycc routes
-NAME                           OWNER        KIND           GATEWAYS                              SERVICES
-python-getting-started         demo         HTTPRoute      ["python-getting-started:80"]         ["python-getting-started:80"]
+NAME                       KIND        GATEWAYS                          SERVICES
+python-getting-started     HTTPRoute   ["python-getting-started:80"]     ["python-getting-started:80"]
 ```
 
-### Route YAML Format
+### Route TOML Format
 
-Routes use a K8s-style manifest format with the following structure:
+Routes are managed by applying a TOML file with the following structure:
 
 | Field | Description |
 |-------|-------------|
-| `apiVersion` | API version, e.g. `controller.drycc.cc/v2.3` |
-| `kind` | Route type: `HTTPRoute`, `TCPRoute`, `UDPRoute`, `GRPCRoute`, `TLSRoute` |
-| `metadata.name` | Route name (required) |
-| `spec.parents` | List of parent gateways to attach this route to |
-| `spec.parents[].name` | Gateway name |
-| `spec.parents[].port` | Gateway port |
-| `spec.rules` | List of routing rules |
-| `spec.rules[].matches` | List of match conditions (path, headers, etc.) |
-| `spec.rules[].backends` | List of backend services to route traffic to |
-| `spec.rules[].backends[].kind` | Backend kind (typically `Service`) |
-| `spec.rules[].backends[].name` | Backend service name |
-| `spec.rules[].backends[].port` | Backend service port |
-| `spec.rules[].backends[].weight` | Traffic weight (0-100) |
+| `name` | Route name (required) |
+| `kind` | Route kind: `HTTPRoute`, `TCPRoute`, `UDPRoute`, `GRPCRoute`, `TLSRoute` (required, cannot be changed after creation) |
+| `parent_refs` | List of parent gateways to attach this route to (required) |
+| `parent_refs[].name` | Gateway name |
+| `parent_refs[].port` | Gateway port |
+| `rules` | List of routing rules (required) |
+| `rules[].matches` | List of match conditions (path, headers, etc.) |
+| `rules[].backend_refs` | List of backend services to route traffic to |
+| `rules[].backend_refs[].kind` | Backend kind (typically `Service`) |
+| `rules[].backend_refs[].name` | Backend service name |
+| `rules[].backend_refs[].port` | Backend service port |
+| `rules[].backend_refs[].weight` | Traffic weight |
+
+{{% alert title="Note" color="info" %}}
+In TOML, the bare `[[rules]]` header is what declares `rules` as a list, so it must be kept even though it holds no values itself. Nested entries such as `[[rules.matches]]` and `[[rules.backend_refs]]` always attach to the most recent `[[rules]]` block.
+{{% /alert %}}
 
 ### Applying a Route
 
-Create or update a route by applying a YAML file:
+Create or update a route by applying a TOML file:
 
 ```
-$ cat route.yaml
-apiVersion: controller.drycc.cc/v2.3
-kind: HTTPRoute
-metadata:
-  name: sleep
-spec:
-  parents:
-  - name: python-getting-started
-    port: 80
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backends:
-    - kind: Service
-      name: python-getting-started-sleep
-      port: 8001
-      weight: 100
+$ cat route.toml
+name = "sleep"
+kind = "HTTPRoute"
 
-$ drycc routes apply route.yaml
+[[parent_refs]]
+name = "python-getting-started"
+port = 80
+
+[[rules]]
+
+[[rules.matches]]
+path.type = "PathPrefix"
+path.value = "/"
+
+[[rules.backend_refs]]
+kind = "Service"
+name = "python-getting-started-sleep"
+port = 8001
+weight = 100
+
+$ drycc routes apply route.toml
 Applying route sleep to python-getting-started... done
 ```
 
@@ -123,57 +158,60 @@ Applying route sleep to python-getting-started... done
 
 You can split traffic between multiple backends using weights:
 
-```yaml
-apiVersion: controller.drycc.cc/v2.3
-kind: HTTPRoute
-metadata:
-  name: canary
-spec:
-  parents:
-  - name: python-getting-started
-    port: 80
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backends:
-    - kind: Service
-      name: python-getting-started-web
-      port: 80
-      weight: 90
-    - kind: Service
-      name: python-getting-started-canary
-      port: 80
-      weight: 10
+```toml
+name = "canary"
+kind = "HTTPRoute"
+
+[[parent_refs]]
+name = "python-getting-started"
+port = 80
+
+[[rules]]
+
+[[rules.matches]]
+path.type = "PathPrefix"
+path.value = "/"
+
+[[rules.backend_refs]]
+kind = "Service"
+name = "python-getting-started-web"
+port = 80
+weight = 90
+
+[[rules.backend_refs]]
+kind = "Service"
+name = "python-getting-started-canary"
+port = 80
+weight = 10
 ```
 
 ### Viewing Route Details
 
-`drycc routes info` prints the route in K8s-style format, including `status` fields such as `routable`, similar to `kubectl get -o yaml`.
+`drycc routes info` prints the route as TOML, including the read-only `routable` field:
 
 ```
 $ drycc routes info sleep
-apiVersion: controller.drycc.cc/v2.3
-kind: HTTPRoute
-metadata:
-  name: sleep
-spec:
-  parents:
-  - name: python-getting-started
-    port: 80
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backends:
-    - kind: Service
-      name: python-getting-started-sleep
-      port: 8001
-      weight: 100
-status:
-  routable: true
+app = "python-getting-started"
+name = "sleep"
+kind = "HTTPRoute"
+routable = true
+
+[[parent_refs]]
+  name = "python-getting-started"
+  port = 80
+
+[[rules]]
+
+  [[rules.backend_refs]]
+    kind = "Service"
+    name = "python-getting-started-sleep"
+    port = 8001
+    weight = 100
+
+  [[rules.matches]]
+    [rules.matches.path]
+      type = "PathPrefix"
+      value = "/"
 ```
 
 ### Removing a Route

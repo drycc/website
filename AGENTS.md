@@ -123,17 +123,24 @@ $ drycc healthchecks set liveness_probe http_get 80 --ptype web
 $ drycc healthchecks set readiness_probe exec -- /bin/echo -n hello --ptype web
 ```
 
-Example — K8s YAML manifests in docs use K8s-native camelCase (this is fine, it's K8s manifest format, not Drycc CLI):
+Example — TOML files for `drycc gateways apply` / `drycc routes apply` are Drycc API payloads (not K8s manifests), so they use snake_case too:
 
-```yaml
-apiVersion: controller.drycc.cc/v2.3
-kind: HTTPRoute
-metadata:
-  name: sleep
-spec:
-  parents:
-  - name: python-getting-started
+```toml
+name = "sleep"
+kind = "HTTPRoute"
+
+[[parent_refs]]
+name = "python-getting-started"
+port = 80
+
+[[rules]]
+
+[[rules.backend_refs]]
+name = "python-getting-started-sleep"
+port = 8001
 ```
+
+Enum values such as `HTTPRoute` and `PathPrefix` are values, not keys, so they stay as-is. Note the bare `[[rules]]` header is required — it declares `rules` as a list.
 
 ## Build and Preview
 

@@ -23,8 +23,8 @@ config/[a-z0-9]+(\.[a-z0-9]+)*::
         配置文件名，文件名是组名。
         格式是环境变量格式。
 
-[a-z0-9]+(\-[a-z0-9]+)*.(yaml|yml)::
-        流水线配置文件。
+[a-z0-9]+(\-[a-z0-9]+)*.toml::
+        流水线配置文件，使用 TOML 格式。
 ```
 
 ### 配置格式
@@ -52,28 +52,27 @@ JVM_OPTIONS=-XX:+UseG1GC
 
 这是一个说明使用清单构建 Docker 镜像的示例。
 
-```
-kind: pipeline
-ptype: web
-build:
-  docker: Dockerfile
-  arg:
-    CODENAME: bookworm
-env:
-  VERSION: 1.2.1
-run:
-  command:
-  - ./deployment-tasks.sh
-  image: task
-  timeout: 100
-config:
-- jvm-config
-deploy:
-  command:
-  - bash
-  - -ec
-  args:
-  - bundle exec puma -C config/puma.rb
+```toml
+ptype = "web"
+config = ["jvmconfig"]
+
+[build]
+docker = "Dockerfile"
+
+[build.arg]
+CODENAME = "bookworm"
+
+[env]
+VERSION = "1.2.1"
+
+[run]
+command = ["./deployment-tasks.sh"]
+image = "task"
+timeout = 100
+
+[deploy]
+command = ["bash", "-ec"]
+args = ["bundle exec puma -C config/puma.rb"]
 ```
 
 有关更多部署信息，请参考 drycc [示例](https://github.com/drycc/samples)。
@@ -90,28 +89,27 @@ A manifest has three top-level sections.
 
 Here’s an example that illustrates using a manifest to build Docker images.
 
-```
-kind: pipeline
-ptype: web
-build:
-  docker: Dockerfile
-  arg:
-    CODENAME: bookworm
-env:
-  VERSION: 1.2.1
-run:
-  command:
-  - ./deployment-tasks.sh
-  image: task
-  timeout: 100
-config:
-- jvm-config
-deploy:
-  command:
-  - bash
-  - -ec
-  args:
-  - bundle exec puma -C config/puma.rb
+```toml
+ptype = "web"
+config = ["jvmconfig"]
+
+[build]
+docker = "Dockerfile"
+
+[build.arg]
+CODENAME = "bookworm"
+
+[env]
+VERSION = "1.2.1"
+
+[run]
+command = ["./deployment-tasks.sh"]
+image = "task"
+timeout = 100
+
+[deploy]
+command = ["bash", "-ec"]
+args = ["bundle exec puma -C config/puma.rb"]
 ```
 
 For more deployment information, please refer to the drycc [examples](https://github.com/drycc/samples).

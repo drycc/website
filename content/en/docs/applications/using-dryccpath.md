@@ -21,8 +21,8 @@ config/[a-z0-9]+(\.[a-z0-9]+)*::
         Configuration files named by group.
         Format follows environment variable syntax.
 
-[a-z0-9]+(\-[a-z0-9]+)*.(yaml|yml)::
-        Pipeline configuration files.
+[a-z0-9]+(\-[a-z0-9]+)*.toml::
+        Pipeline configuration files in TOML format.
 ```
 
 ### Config Format
@@ -46,28 +46,27 @@ A manifest contains these top-level sections:
 
 Example manifest for building Docker images:
 
-```
-kind: pipeline
-ptype: web
-build:
-  docker: Dockerfile
-  arg:
-    CODENAME: bookworm
-env:
-  VERSION: 1.2.1
-run:
-  command:
-  - ./deployment-tasks.sh
-  image: task
-  timeout: 100
-config:
-- jvm-config
-deploy:
-  command:
-  - bash
-  - -ec
-  args:
-  - bundle exec puma -C config/puma.rb
+```toml
+ptype = "web"
+config = ["jvmconfig"]
+
+[build]
+docker = "Dockerfile"
+
+[build.arg]
+CODENAME = "bookworm"
+
+[env]
+VERSION = "1.2.1"
+
+[run]
+command = ["./deployment-tasks.sh"]
+image = "task"
+timeout = 100
+
+[deploy]
+command = ["bash", "-ec"]
+args = ["bundle exec puma -C config/puma.rb"]
 ```
 
 For more deployment examples, see the Drycc [samples](https://github.com/drycc/samples).
