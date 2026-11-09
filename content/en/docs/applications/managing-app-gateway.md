@@ -73,20 +73,72 @@ You can save this output to a file, edit the `[[ports]]` entries, and apply it a
 
 ## Create a Service for an Application
 
-A service is a way of exposing services internally, creating a service generates an internal DNS that can access process types. The web process type is created automatically; for other types, you should add them as needed.
+A Service exposes a set of Pods inside the cluster. Its `name` is both the resource identity and the Kubernetes Service name used by Route `backend_refs`. The `ptype` only selects Pods; multiple Services can use the same ptype with different names and ports.
 
-List the services:
+The default web Service is created automatically with the application name. List the Services:
 
 ```
 $ drycc services
-PTYPE      PORT    PROTOCOL    TARGET-PORT    DOMAIN
-web        80      TCP         8000           python-getting-started.python-getting-started.svc
+NAME                         PTYPE    PORT    PROTOCOL    TARGET PORT    DOMAIN
+python-getting-started       web      80      TCP         8000           python-getting-started.python-getting-started.svc
 ```
 
-Add a new service for a process type:
+### Service TOML Format
+
+Services are managed by applying a TOML file with the following structure:
+
+| Field | Description |
+|-------|-------------|
+| `name` | Service name and Kubernetes `metadata.name` (required) |
+| `ptype` | Process type selected by the Service (required) |
+| `ports` | List of ports exposed by the Service (required) |
+| `ports[].port` | Service port number (1-65535) |
+| `ports[].protocol` | Network protocol: `TCP`, `UDP`, `SCTP` |
+| `ports[].target_port` | Pod port to which traffic is forwarded (1-65535) |
+
+### Applying a Service
+
+Create or update a Service by applying a TOML file:
 
 ```
-$ drycc services add sleep 8001:8001
+$ cat service.toml
+name = "python-getting-started-sleep"
+ptype = "sleep"
+
+[[ports]]
+port = 8001
+protocol = "TCP"
+target_port = 8001
+
+$ drycc services apply service.toml
+Applying service python-getting-started-sleep to python-getting-started... done
+```
+
+Each `[[ports]]` header declares one entry of the port list. Applying a Service replaces its entire port list but keeps its name stable, so existing Route backend references do not need to change.
+
+### Viewing Service Details
+
+`drycc services info` prints the Service as TOML:
+
+```
+$ drycc services info python-getting-started-sleep
+domain = "python-getting-started-sleep.python-getting-started.svc"
+name = "python-getting-started-sleep"
+ptype = "sleep"
+
+[[ports]]
+  port = 8001
+  protocol = "TCP"
+  target_port = 8001
+```
+
+You can save this output, edit the ptype or ports, and apply it again. Use the Service `name` in Route `rules.backend_refs[].name`.
+
+### Removing a Service
+
+```
+$ drycc services remove python-getting-started-sleep
+Removing service python-getting-started-sleep from python-getting-started... done
 ```
 
 ## Create a Route for an Application
@@ -173,7 +225,7 @@ path.value = "/"
 
 [[rules.backend_refs]]
 kind = "Service"
-name = "python-getting-started-web"
+name = "python-getting-started"
 port = 80
 weight = 90
 

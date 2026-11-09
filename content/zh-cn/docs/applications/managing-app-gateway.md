@@ -73,20 +73,72 @@ name = "python-getting-started"
 
 ## 为应用创建服务
 
-服务是一种对内暴露服务的方式，创建服务会生成一个内部 DNS，可以访问 `ptype`。
-web 进程类型已创建，对于其他类型，您应该根据需要添加。
+Service 用于在集群内暴露一组 Pod。`name` 既是资源身份，也是 Route `backend_refs` 引用的 Kubernetes Service 名称；`ptype` 只负责选择 Pod。多个 Service 可以使用相同的 ptype，但采用不同的名称和端口。
 
-列出服务：
+系统会自动创建默认 web Service，其名称为应用名称。列出 Service：
+
 ```
 $ drycc services
-PTYPE      PORT    PROTOCOL    TARGET-PORT    DOMAIN
-web        80      TCP         8000           python-getting-started.python-getting-started.svc
+NAME                         PTYPE    PORT    PROTOCOL    TARGET PORT    DOMAIN
+python-getting-started       web      80      TCP         8000           python-getting-started.python-getting-started.svc
 ```
 
-为进程类型添加新服务
+### Service TOML 格式
+
+通过应用 TOML 文件来管理 Service，结构如下：
+
+| 字段 | 说明 |
+|------|------|
+| `name` | Service 名称及 Kubernetes `metadata.name`（必填） |
+| `ptype` | Service 选择的进程类型（必填） |
+| `ports` | Service 暴露的端口列表（必填） |
+| `ports[].port` | Service 端口号（1-65535） |
+| `ports[].protocol` | 网络协议：`TCP`、`UDP`、`SCTP` |
+| `ports[].target_port` | 流量转发到的 Pod 端口（1-65535） |
+
+### 应用 Service
+
+通过应用 TOML 文件创建或更新 Service：
+
 ```
-$ drycc services add --help
-$ drycc services add sleep 8001:8001
+$ cat service.toml
+name = "python-getting-started-sleep"
+ptype = "sleep"
+
+[[ports]]
+port = 8001
+protocol = "TCP"
+target_port = 8001
+
+$ drycc services apply service.toml
+Applying service python-getting-started-sleep to python-getting-started... done
+```
+
+每个 `[[ports]]` 表头声明端口列表中的一项。应用 Service 会整体替换端口列表，但名称保持稳定，因此已有 Route 后端引用无需修改。
+
+### 查看 Service 详情
+
+`drycc services info` 以 TOML 格式输出 Service：
+
+```
+$ drycc services info python-getting-started-sleep
+domain = "python-getting-started-sleep.python-getting-started.svc"
+name = "python-getting-started-sleep"
+ptype = "sleep"
+
+[[ports]]
+  port = 8001
+  protocol = "TCP"
+  target_port = 8001
+```
+
+您可以保存该输出，修改 ptype 或端口后再次应用。在 Route 的 `rules.backend_refs[].name` 中使用 Service 的 `name`。
+
+### 删除 Service
+
+```
+$ drycc services remove python-getting-started-sleep
+Removing service python-getting-started-sleep from python-getting-started... done
 ```
 
 ## 为应用创建路由
@@ -174,7 +226,7 @@ path.value = "/"
 
 [[rules.backend_refs]]
 kind = "Service"
-name = "python-getting-started-web"
+name = "python-getting-started"
 port = 80
 weight = 90
 

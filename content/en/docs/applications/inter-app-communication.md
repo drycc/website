@@ -9,8 +9,8 @@ Multi-process applications often feature one public-facing process supported by 
 
 ## DNS Service Discovery
 
-Drycc Workflow supports single applications composed of multiple processes. Each application communicates on a single port, so inter-app communication requires discovering the target application's address and port.
+Workflow creates a default [Kubernetes Service](https://kubernetes.io/docs/user-guide/services/) for the web process type. You can also create named Services for any process type, including multiple Services that select the same process type with different ports.
 
-All Workflow applications map to port 80 externally. The challenge lies in discovering IP addresses. Workflow creates a [Kubernetes Service](https://kubernetes.io/docs/user-guide/services/) for each application, assigning a name and cluster-internal IP address.
+The default web Service uses the application name and listens on port 80. Custom Services use their configured names and ports. Every Service receives a cluster-internal DNS name in the form `<service-name>.<app-id>.svc`.
 
-The cluster's DNS service automatically manages DNS records, mapping application names to IP addresses as services start and stop. Applications communicate by sending requests to the service domain name: `app-name.app-namespace`.
+For example, an application can connect to the `sleep` Service on `python-getting-started-sleep.python-getting-started.svc:8001`. Use the Service name shown by `drycc services list`; it is also the name used by Route backend references.
